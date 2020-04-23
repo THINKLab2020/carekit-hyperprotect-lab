@@ -5,7 +5,8 @@
 
 1. Log into the IBM Cloud dashboard (https://cloud.ibm.com)
 	* IBM Cloud account is required for authentication
-	* For assistance registering an account with IBM Cloud, please refer to <documentation url>
+	* If a Cloud account is required, navigate to the registration page, and fill out all required fields.
+		* https://cloud.ibm.com/registration
 
 
 2. After the IBM Cloud homepage loads, click the blue 'Create Resource' button on the top right of the page, directly underneath the Cloud toolbar. Alternatively, the create resource function is accessible by selecting the 'Add Resource +' option underneath the Resouce Summary table.
