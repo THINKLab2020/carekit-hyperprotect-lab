@@ -55,7 +55,7 @@ Now that both required Cloud services have been deployed, it is time to access t
 		
 	* The ID required for a successful ssh connection must be 'root'
 
-**Congratulations, you are now successfully connected to your Virtual Server**
+**You should now be successfully connected to your Virtual Server!**
 
 
 - - - -
