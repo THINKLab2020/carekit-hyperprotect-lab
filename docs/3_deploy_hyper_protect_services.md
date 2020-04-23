@@ -3,6 +3,10 @@
 
 - - - -
 
+Goal : At the end of this section, you should have a production ready MongoDB instance from IBM Hyper Protect DBaaS and a secure container environment from IBM Hyper Protect Virtual Servers to deploy the TypeScript server on.
+
+* * *
+
 1. Log into the IBM Cloud dashboard (https://cloud.ibm.com)
 	* IBM Cloud account is required for authentication
 	* If a Cloud account is required, navigate to the registration page, and fill out all required fields.

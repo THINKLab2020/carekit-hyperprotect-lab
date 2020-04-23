@@ -15,8 +15,8 @@
 
 ### Agenda:
 
-1. Create/re-use access IDs
+1. [Create/re-use](docs/1_accounts.md) access IDs for Apple ID and IBM Cloud
 2. Deploy Apple CareKit Sample App (<https://github.com/carekit-apple/CareKit>)
-3. Modify Sample App
-4. Provision IBM Hyper Protect DBaaS and IBM Hyper Protect Virtual Server
-5. Integrate Hyper Protect SDK with Sample App
+3. [Modify or add an OCKTask](docs/2_modify_ocktask.md) to modify the Sample App
+4. Provision a IBM Hyper Protect DBaaS and a IBM Hyper Protect Virtual Server instance following [these](docs/3_deploy_hyper_protect_services.md) instructions
+5. Integrate Hyper Protect SDK with Sample App following [these](docs/4_integrate_CareKitHyperProtectSDK_tutorial.md) instructions
