@@ -8,9 +8,7 @@ Goal : At the end of this section, you should have a production ready MongoDB in
 * * *
 
 1. Log into the IBM Cloud dashboard (https://cloud.ibm.com)
-	* IBM Cloud account is required for authentication
-	* If a Cloud account is required, navigate to the registration page, and fill out all required fields.
-		* https://cloud.ibm.com/registration
+	* Please refer to the documentation on the _README_ page for further instructions on logging into IBM Cloud, or obtaining an IBM Cloud account
 
 
 2. After the IBM Cloud homepage loads, click the blue 'Create Resource' button on the top right of the page, directly underneath the Cloud toolbar. Alternatively, the create resource function is accessible by selecting the 'Add Resource +' option underneath the Resouce Summary table.
