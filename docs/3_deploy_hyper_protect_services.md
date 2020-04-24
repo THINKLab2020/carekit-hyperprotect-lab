@@ -17,8 +17,7 @@ Goal : At the end of this section, you should have a production ready MongoDB in
 
 
 3. Within the catalog listings, locate and click on 'Hyper Protect Virtual Servers'. 	
-  * The page defaults to the 'Create' tab, where the various Virtual Server options are able to be selected. 
-	
+    * The page defaults to the 'Create' tab, where the various Virtual Server options are able to be selected. 
     * Choose the appropriate region to deploy the virtual server in, as well as a suitable pricing plan based on the technical requirements for the Virtual Server
       * The 'free' payment option will be adequate for this lab
  
