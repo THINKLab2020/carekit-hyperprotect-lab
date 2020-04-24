@@ -21,9 +21,9 @@ Goal : At the end of this section, you should have a production ready MongoDB in
     * Choose the appropriate region to deploy the virtual server in, as well as a suitable pricing plan based on the technical requirements for the Virtual Server
       * The 'free' payment option will be adequate for this lab
  
-  * Add any necessary tags for labeling the virtual server
-	* Lastly, copy and paste in a public ssh key into the last field. This is a required step as the Virtual server is only accessible via ssh key.
-	* After all required fields have been properly filled out, click the create button on the bottom right hand side of this page to begin provisioning of the Hyper Protect Virtual Server instance
+    * Add any necessary tags for labeling the virtual server
+	  * Lastly, copy and paste in a public ssh key into the last field. This is a required step as the Virtual server is only accessible via ssh key.
+	  * After all required fields have been properly filled out, click the create button on the bottom right hand side of this page to begin provisioning of the Hyper Protect Virtual Server instance
 
 
 4. Navigate back to the IBM Cloud catalog, and search for the 'Hyper Protect DBaaS for MongoDB' offering.
