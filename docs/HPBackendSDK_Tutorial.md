@@ -34,19 +34,24 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 	* Instructions on how to access the VS can be found in the Prerequisite section above.
 ![Access-HPVS-Container](screenshots/logIntoHPVS.png)
 
+<br/>
+
 
 2. Clone the 'carekit-apple' Github repository on the provisioned HP Virtual Server using the following command: _git clone https://github.com/carekit-apple/CareKit.git_
 	* See the afforementioned prerequisite section for assistance installing _git_
 	* Note: This repository contains the CareKit's frontend (UI)
 
+<br/>
 
 3. One additional repo is required for this configuration, run this command: _git clone https://github.com/carekit-apple/HyperProtectBackendSDK.git_
 	* This particular repository contains the application backend written in typescript, utilizing TypeORM.
 
+<br/>
 
 4. Within the Virtual Server, change the current directory to the recently cloned backend repository.
 	* Changing directories can be achieved by using _cd HyperProtectBackendSDK-master_
 
+<br/>
 
 5. An environmental variable file (.env) has been created in the root directory. It is imperative that the necessary MongoDB cluster URI is added as the environmental variable's value, see below for an example.
 	* Open up the '.env' file, and set the following values based on the information that the MongoDB DBaaS instance was created with, in the previous tutorial. 
@@ -69,6 +74,7 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 	* The _npm install_ process will install all of the required packages and dependencies needed to run the CareKit application
 ![npm-Install](screenshots/npmInstall.png)
 
+<br/>
 
 7. Finally, start the application backend by executing the _npm start_ command. This particular command will initialize the application, and bring the application online leveraging port 3000. 
 	* If the _npm start_ execution was successful, the message stating that 'Server started on port 3000' should propagate.
@@ -76,3 +82,4 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 ![npm-Install](screenshots/npmStart.png)
 
 
+# Validation Test
