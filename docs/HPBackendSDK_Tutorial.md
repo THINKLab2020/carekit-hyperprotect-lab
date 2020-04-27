@@ -8,10 +8,12 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 # Prerequisites
 	
 * Hyper Protect Virtual Server instance
-	* Follow steps here for assistance provisioning a Virtual Server {insert URL at here}
+	* Follow steps here for assistance provisioning a Virtual Server https://cloud.ibm.com/docs/services/hp-virtual-servers?topic=hp-virtual-servers-connect_vs
+	* Also: https://github.com/e-desouza/carekit-hyperprotect-lab/blob/master/docs/3_deploy_hyper_protect_services.md
 
 * Hyper Protect DBaaS for MongoDB instance
-	* Follow steps located {here - url} for assistance provisioning a Hyper Protect MongoDB
+	* Follow steps located https://github.com/e-desouza/carekit-hyperprotect-lab/blob/master/docs/3_deploy_hyper_protect_services.md for assistance provisioning a Hyper Protect MongoDB
+	* Additional Information: https://cloud.ibm.com/docs/services/hyper-protect-dbaas-for-mongodb?topic=hyper-protect-dbaas-for-mongodb-gettingstarted
 
 * Ubuntu package 'git' must be installed on the Virtual Server for this lab. Please access the Virtual Server via ssh protocol, and run the following command: _sudo apt-get install -y git_
 	* After the package has finished installing, verify the installation by executing command _git --version_
@@ -274,3 +276,6 @@ curl --location --request POST 'http://{HPVS_Public_IP_Address}:3000/revisionRec
     }
 }'
 ```
+
+After the curl command has been issued, if successful the response will look similar to this screenshot:
+![Confirmation](screenshots/Confirmation.png)
