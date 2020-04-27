@@ -55,10 +55,6 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 			* Fill in full cluster URI, which should consist of 3 total DBaaS replica endpoints
 
 
-6. One more modification to the existing code is required, locate the _index.ts_ file in the 'src' directory
-	* Two lines of code are currently commented out, and both lines must be uncommented in order to utilize File Sync for reading the MongoDB CA certificate during the authentication process.
-	* 
-
 7. Run the 'npm' installation by using command _npm install_ from the root directory of the Github repo {enter name here once finalized}
 	* The _npm install_ process will install all of the required packages and dependencies needed to run the CareKit application
 	* Ensure that the ts-node version is **greater** than 3.3.0, as several compiler errors will occur during the next step if an older version is used.
