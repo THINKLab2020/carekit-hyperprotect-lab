@@ -52,6 +52,8 @@ To                         Action      From
 
 1. Access the Hyper Protect Virtual Server via ssh
 	* Instructions on how to access the VS can be found in the Prerequisite section above.
+	* Make certain that all required prerequisites have been installed on the Virtual Server after success accessing the instance. 
+		* Example: _ufw_ installation, _git_ installation, etc. Please see above section for a full list and instructions.
 ![Access-HPVS-Container](screenshots/logIntoHPVS.png)
 
 <br/>
