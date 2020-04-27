@@ -55,12 +55,12 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 			* Fill in full cluster URI, which should consist of 3 total DBaaS replica endpoints
 
 
-7. Run the 'npm' installation by using command _npm install_ from the root directory of the Github repo {enter name here once finalized}
+6. Run the 'npm' installation by using command _npm install_ from the root directory of the Github repo {enter name here once finalized}
 	* The _npm install_ process will install all of the required packages and dependencies needed to run the CareKit application
 	* Ensure that the ts-node version is **greater** than 3.3.0, as several compiler errors will occur during the next step if an older version is used.
 
 
-8. Finally, start the application backend by executing the _npm start_ command. This particular command will initialize the application, and bring the application online leveraging port 3000. 
+7. Finally, start the application backend by executing the _npm start_ command. This particular command will initialize the application, and bring the application online leveraging port 3000. 
 	* If the _npm start_ execution was successful, the message stating that 'Server started on port 3000' should propagate.
 
 
