@@ -101,9 +101,15 @@ To                         Action      From
 	* Ensure that the ts-node version is **greater** than 3.3.0, as several compiler errors will occur during the next step if an older version is used. Notice in the screenshot linked below that 'Using ts-node version 8.9.1' is delcared. 
 ![npm-Install](screenshots/npmStart.png)
 
+<br/>
 
 # Validation Test
 To validate that the app is running properly, and listening on port 3000, a simple curl command can be issued to for verification. Please make certain that the IP address is changed in the http address after the POST declaration, as the goal is to hit the running application using the pulic IP addresss of the Virtual Server.
+	
+* Copy the entire curl command below, after replacing the HPVS Public IP address
+* Run command from local machine, this will verify that the application is running on the Virtual Server, and is accessible. 
+* If the test is successful, a returned output of 'RevisionRecord stored' will populate after the curl command. 
+	* Also, on the Virtual Server running the application, the POST call will come through, and a _201_ code will be returned. 
 
 **Curl Command**
 ```
