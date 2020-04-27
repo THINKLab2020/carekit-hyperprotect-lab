@@ -24,6 +24,26 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 	
 	* verify that docker was installed correctly using _docker --version_
 		* If required, type in _systemctl |grep docker_ and the output should tell you if the Docker service was installed. If the service is present yet disabled, start the service using  _sudo systemctl start docker_
+		
+* In order to properly run the application using port 3000 for 'express', _ufw_ will need to be installed on the HPVS instance
+	* Command to run on Virtual Server: _sudo apt-get -y install ufw_
+	* Enable traffic to port 3000 in order to leverage POST calls to upload information to MongoDB and the backend application
+		* ufw allow 3000/tcp
+		* Verify port translation with command _ufw status verbose_ 
+
+```
+root@b4e8f18c497b:~/HyperProtectBackendSDK-test# ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), deny (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+3000/tcp                   ALLOW IN    Anywhere                  
+3000/tcp (v6)              ALLOW IN    Anywhere (v6) 
+```
+	
 
 
 <br/>
@@ -83,3 +103,166 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 
 
 # Validation Test
+To validate that the app is running properly, and listening on port 3000, a simple curl command can be issued to for verification. Please make certain that the IP address is changed in the http address after the POST declaration, as the goal is to hit the running application using the pulic IP addresss of the Virtual Server.
+
+**Curl Command**
+```
+curl --location --request POST 'http://{HPVS_Public_IP_Address}:3000/revisionRecord' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "entities": [
+        {
+            "type": "task",
+            "object": {
+                "schemaVersion": {
+                    "majorVersion": 2,
+                    "minorVersion": 0,
+                    "patchNumber": 4
+                },
+                "id": "nausea",
+                "uuid": "75EE244A-7303-43CF-9AA5-6CC3BB81210A",
+                "createdDate": 609212115.685683,
+                "updatedDate": 609212115.685702,
+                "title": "Track your nausea",
+                "notes": [],
+                "timezone": {
+                    "identifier": "America/Sao_Paulo"
+                },
+                "instructions": "Tap the button below anytime you experience nausea.",
+                "impactsAdherence": false,
+                "effectiveDate": 608785200,
+                "schedule": {
+                    "elements": [
+                        {
+                            "text": "Anytime throughout the day",
+                            "duration": {
+                                "isAllDay": true
+                            },
+                            "interval": {
+                                "minute": 0,
+                                "hour": 0,
+                                "second": 0,
+                                "day": 1,
+                                "month": 0,
+                                "year": 0,
+                                "weekOfYear": 0
+                            },
+                            "targetValues": [],
+                            "start": 608785200
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "task",
+            "object": {
+                "schemaVersion": {
+                    "majorVersion": 2,
+                    "minorVersion": 0,
+                    "patchNumber": 4
+                },
+                "id": "doxylamine",
+                "uuid": "C0861A29-C726-4B58-B3AB-89CF3E3294F6",
+                "createdDate": 609212115.696223,
+                "updatedDate": 609212115.696224,
+                "title": "Take Doxylamine",
+                "notes": [],
+                "timezone": {
+                    "identifier": "America/Sao_Paulo"
+                },
+                "instructions": "Take 25mg of doxylamine when you experience nausea.",
+                "impactsAdherence": true,
+                "effectiveDate": 608814000,
+                "schedule": {
+                    "elements": [
+                        {
+                            "duration": {
+                                "seconds": 0,
+                                "isAllDay": false
+                            },
+                            "interval": {
+                                "minute": 0,
+                                "hour": 0,
+                                "second": 0,
+                                "day": 1,
+                                "month": 0,
+                                "year": 0,
+                                "weekOfYear": 0
+                            },
+                            "targetValues": [],
+                            "start": 608814000
+                        },
+                        {
+                            "duration": {
+                                "seconds": 0,
+                                "isAllDay": false
+                            },
+                            "interval": {
+                                "minute": 0,
+                                "hour": 0,
+                                "second": 0,
+                                "day": 2,
+                                "month": 0,
+                                "year": 0,
+                                "weekOfYear": 0
+                            },
+                            "targetValues": [],
+                            "start": 608835600
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "task",
+            "object": {
+                "schemaVersion": {
+                    "majorVersion": 2,
+                    "minorVersion": 0,
+                    "patchNumber": 4
+                },
+                "id": "kegels",
+                "uuid": "1B6AA55A-E5A1-4124-8B9E-59DE3EEF9DE5",
+                "createdDate": 609212115.697711,
+                "updatedDate": 609212115.697713,
+                "title": "Kegel Exercises",
+                "notes": [],
+                "timezone": {
+                    "identifier": "America/Sao_Paulo"
+                },
+                "instructions": "Perform kegel exercies",
+                "impactsAdherence": true,
+                "effectiveDate": 608814000,
+                "schedule": {
+                    "elements": [
+                        {
+                            "duration": {
+                                "seconds": 0,
+                                "isAllDay": false
+                            },
+                            "interval": {
+                                "minute": 0,
+                                "hour": 0,
+                                "second": 0,
+                                "day": 2,
+                                "month": 0,
+                                "year": 0,
+                                "weekOfYear": 0
+                            },
+                            "targetValues": [],
+                            "start": 608814000
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "knowledgeVector": {
+        "processes": [
+            { "id" : "1C43F648-D41A-4A5A-8708-15737425FA7C", "clock" : 10},
+            { "id" : "2B43F648-D41A-4A5A-8708-15737425FA7C", "clock" : 4}
+        ]
+    }
+}'
+```
