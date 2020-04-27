@@ -40,17 +40,15 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 
 
 3. One additional repo is required for this configuration, run this command: _git clone https://github.com/carekit-apple/HyperProtectBackendSDK.git_
-	* This particular repository contains the typescript written application backend, utilizing TypeORM and other native features
+	* This particular repository contains the application backend written in typescript, utilizing TypeORM.
 
 
-4. Change the directory to the recently cloned backend repository, using _cd HyperProtectBackendSDK-master_
+4. Within the Virtual Server, change the current directory to the recently cloned backend repository.
+	* Changing directories can be achieved by using _cd HyperProtectBackendSDK-master_
 
 
-5. An environmental variable file is needed to be created in this directory, as it is imperative that we add the necessary MongoDB options to our environment, including; username, password, ssl certificate, etc.. 
-	* To do this in the VS, use command _touch .env_
-
-	* After the '.env' file has been created, a few values must be added to achieve the desired outcome
-		* Open up the '.env' file, and add the following environmental variables:
+5. An environmental variable file (.env) has been created in the root directory, it is imperative that we add the necessary MongoDB options to our environment, which includes; username, password, and db uri
+	* Open up the '.env' file, and set the following values based on the information that the DBaaS MongoDB instance was created with
 		* MONGO_USER={MongoDB username} - ID was created during the provisioning of the DBaaS instance
 		* MONGO_PASS={MongoDB password} - Password was also created during the provisioning of MongoDB
 		* MONGO_DB={mongodb://dbaasXX.hyperp-dbaas.cloud.ibm.com:XXXX...}
@@ -63,7 +61,10 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 
 7. Run the 'npm' installation by using command _npm install_ from the root directory of the Github repo {enter name here once finalized}
 	* The _npm install_ process will install all of the required packages and dependencies needed to run the CareKit application
+	* Ensure that the ts-node version is **greater** than 3.3.0, as several compiler errors will occur during the next step if an older version is used.
 
 
-8. Finally, start the application by executing the _npm start_ command. This particular command will initialize the application, and bring the application online.
-	* {add more details - perhaps change the description}
+8. Finally, start the application backend by executing the _npm start_ command. This particular command will initialize the application, and bring the application online leveraging port 3000. 
+	* If the _npm start_ execution was successful, the message stating that 'Server started on port 3000' should propagate.
+
+
