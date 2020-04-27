@@ -32,6 +32,7 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 
 1. Access the Hyper Protect Virtual Server via ssh
 	* Instructions on how to access the VS can be found in the Prerequisite section above.
+![Access-HPVS-Container](screenshots/logIntoHPVS.png)
 
 
 2. Clone the 'carekit-apple' Github repository on the provisioned HP Virtual Server using the following command: _git clone https://github.com/carekit-apple/CareKit.git_
@@ -47,20 +48,31 @@ Follow the listed steps below in order to successfully build the Apple CareKit a
 	* Changing directories can be achieved by using _cd HyperProtectBackendSDK-master_
 
 
-5. An environmental variable file (.env) has been created in the root directory, it is imperative that we add the necessary MongoDB options to our environment, which includes; username, password, and db uri
-	* Open up the '.env' file, and set the following values based on the information that the DBaaS MongoDB instance was created with
-		* MONGO_USER={MongoDB username} - ID was created during the provisioning of the DBaaS instance
-		* MONGO_PASS={MongoDB password} - Password was also created during the provisioning of MongoDB
-		* MONGO_DB={mongodb://dbaasXX.hyperp-dbaas.cloud.ibm.com:XXXX...}
+5. An environmental variable file (.env) has been created in the root directory. It is imperative that the necessary MongoDB cluster URI is added as the environmental variable's value, see below for an example.
+	* Open up the '.env' file, and set the following values based on the information that the MongoDB DBaaS instance was created with, in the previous tutorial. 
+		* MONGO_DB={mongodb://UserID:Password@dbaasXX.hyperp-dbaas.cloud.ibm.com:XXXX...}
+			* Ensure to add the admin UserID and Password in the proper place and format within the DB string
 			* Fill in full cluster URI, which should consist of 3 total DBaaS replica endpoints
+
+**Initial .env file contents**:
+![Contents-Of-ENV-File](screenshots/envContents.png)
+
+<br/>
+
+**Example of .env file with required information added**
+![Example-Of-Modifying-ENV-File](screenshots/envVarExample.png)
+
+<br/>
 
 
 6. Run the 'npm' installation by using command _npm install_ from the root directory of the Github repo {enter name here once finalized}
 	* The _npm install_ process will install all of the required packages and dependencies needed to run the CareKit application
-	* Ensure that the ts-node version is **greater** than 3.3.0, as several compiler errors will occur during the next step if an older version is used.
+![npm-Install](screenshots/npmInstall.png)
 
 
 7. Finally, start the application backend by executing the _npm start_ command. This particular command will initialize the application, and bring the application online leveraging port 3000. 
 	* If the _npm start_ execution was successful, the message stating that 'Server started on port 3000' should propagate.
+	* Ensure that the ts-node version is **greater** than 3.3.0, as several compiler errors will occur during the next step if an older version is used. Notice in the screenshot linked below that 'Using ts-node version 8.9.1' is delcared. 
+![npm-Install](screenshots/npmStart.png)
 
 
