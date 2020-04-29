@@ -2,6 +2,13 @@
 Please follow the listed steps below to clone this repository, and successfully run the ansible playbook that configures the newly provisioned HPVS instance.
 - - - -
 
+# Prerequisites
+The only essential prerequisite required for this playbook to run is ansible. 
+
+1. Install ansible version 2.9.6 using pip3
+	* pip3 install ansible==2.9.6
+		* Upon installation the playbook should be ready to be run. No other specific packages are required at this time. 
+
 
 # Setup Steps
 1. Clone the repository on the local machine
