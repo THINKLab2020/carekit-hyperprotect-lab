@@ -7,10 +7,7 @@
 ### Moderators:
 
 - Elton de Souza (Cloud Native Client Success - IBM)
-- Erik Hornberger (iOS Engineer, Health - Apple)
-- Gavi Rawson (iOS Engineer, Health - Apple)
 - Mal Pattiaratchi (Apple-IBM Technical Leader - IBM)
-- Srinath Tupil (Engineering Manager - Apple)
 - Ryley Wharton (Client Success and Developer Advocate - IBM
 
 ### Agenda:
