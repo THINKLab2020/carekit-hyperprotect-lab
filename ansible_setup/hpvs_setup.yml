@@ -5,33 +5,67 @@
 - name: Configure Hyper Protect Virtual Server
   hosts: all
   become: true
-  vars:
   tasks:
     - name: Install required system packages
       apt: name={{ item }} state=latest update_cache=yes
-      loop: [ 'curl', 'npm', 'docker.io', 'ufw', 'docker-compose', 'git']
+      loop: [ 'curl', 'npm', 'docker.io', 'ufw', 'docker-compose', 'git', 'mongodb' ]
+
 
     - name: Clone github repo (SDK CareKit)
       git:
-          repo: https://github.com/Ry-is-me/HyperProtectBackendSDK-test.git
-#          repo: https://github.com/carekit-apple/HyperProtectBackendSDK.git    #actual SDK repo
+#          repo: https://github.com/Ry-is-me/HyperProtectBackendSDK-test.git
+          repo: https://github.com/carekit-apple/HyperProtectBackendSDK.git    #actual SDK repo
           dest: /root/HyperProtectBackendSDK-test
 
+
+    - set_fact:
+        db: "localhost"
+        when: "not db is defined"
+    - debug: var=db
     - name: "Create file on HPVS container for .env test"
       copy:
           content: "MONGO_DB={{ db }}"
           dest: /root/HyperProtectBackendSDK-test/.env
 #          dest: /root/HyperProtectBackendSDK/.env
 
+
     - name: Copy 'cert.pem' file to the app's src/ directory
       copy:
-          src: /root/HyperProtectBackendSDK-test/cert.pem
-          dest: /root/HyperProtectBackendSDK-test/src/
-#          src: /root/HyperProtectBackendSDK/cert.pem           #final copy src/dest when the repo is changed
-#          dest: /root/HyperProtectBackendSDK/src/
+#          src: /root/HyperProtectBackendSDK-test/certs/cert.pem
+#          dest: /root/HyperProtectBackendSDK-test/src/
+           src: /root/HyperProtectBackendSDK/cert.pem           #final copy src/dest when the repo is changed
+           dest: /root/HyperProtectBackendSDK/src/
           remote_src: yes
+
+
+    - name: "Generate CareKit-SDK.key"
+#      shell: openssl genrsa -out ~/HyperProtectBackendSDK-test/certs/carekit-sdk.key 2048
+      shell: openssl genrsa -out ~/HyperProtectBackendSDK/certs/carekit-sdk.key 2048
+      ignore_errors: true
+
+# Triggers only when the MongoDB URI is not passed as an extra var - creates cert for 'localhost'
+    - set_fact:
+        cn_name: "localhost"
+        when: "not db is defined"
+    - name: "Generate CareKit-SDK.csr"
+#      shell: openssl req -new -sha256 -key ~/HyperProtectBackendSDK-test/certs/carekit-sdk.key -subj "/C=US/ST=NC/O=IBM_ZaaS/CN={{ cn_name }}" -out ~/HyperProtectBackendSDK-test/certs/carekit-sdk.csr
+      shell: openssl req -new -sha256 -key ~/HyperProtectBackendSDK/certs/carekit-sdk.key -subj "/C=US/ST=NC/O=IBM_ZaaS/CN={{ cn_name }}" -out ~/HyperProtectBackendSDK/certs/carekit-sdk.csr
+      ignore_errors: true
+
+# When MongodB uri is passed as an extra var CN value is set to IP address to allow HTTPS
+    - name: "Generate CareKit-SDK.csr"
+#      shell: openssl req -new -sha256 -key ~/HyperProtectBackendSDK-test/certs/carekit-sdk.key -subj "/C=US/ST=NC/O=IBM_ZaaS/CN={{ inventory_hostname }}" -out ~/HyperProtectBackendSDK-test/certs/carekit-sdk.csr
+      shell: openssl req -new -sha256 -key ~/HyperProtectBackendSDK/certs/carekit-sdk.key -subj "/C=US/ST=NC/O=IBM_ZaaS/CN=169.63.212.70" -out ~/HyperProtectBackendSDK/certs/carekit-sdk.csr
+      ignore_errors: true
+
+
+    - name: "Generate CareKit-SDK.crt"
+#      shell: openssl x509 -req -in ~/HyperProtectBackendSDK-test/certs/carekit-sdk.csr -CA ~/HyperProtectBackendSDK-test/certs/rootCA.crt -CAkey ~/HyperProtectBackendSDK-test/certs/rootCA.key -CAcreateserial -out ~/HyperProtectBackendSDK-test/certs/carekit-sdk.crt -days 500 -sha256
+      shell: openssl x509 -req -in ~/HyperProtectBackendSDK/certs/carekit-sdk.csr -CA ~/HyperProtectBackendSDK/certs/rootCA.crt -CAkey ~/HyperProtectBackendSDK/certs/rootCA.key -CAcreateserial -out ~/HyperProtectBackendSDK/certs/carekit-sdk.crt -days 500 -sha256
+      ignore_errors: true
+
 
     - name: Running setup via docker-compose.yml
       docker_compose:
-          project_src: /root/HyperProtectBackendSDK-test
-#          project_src: /root/HyperProtectBackendSDK
+#          project_src: /root/HyperProtectBackendSDK-test
+          project_src: /root/HyperProtectBackendSDK
