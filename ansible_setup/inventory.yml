@@ -1,2 +1,4 @@
 [hosts]
-#add HPVS public IP below this comment
+#add HPVS public IP below this comment - or leave as 'localhost' to run locally
+#localhost ansible_connection=local
+169.63.212.70
