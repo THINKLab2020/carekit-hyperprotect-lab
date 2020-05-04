@@ -88,12 +88,11 @@ Please note that while the local setup does _not_ require an IBM Cloud HPVS nor 
 <br/>
 
 3. In order to ensure that the Backend SDK app was created properly, use the following docker commands to check.
+ * _docker ps -a_
+     * You should see two containers as a result, one labeled as 'hyperprotectbackendsdk', and the other container as 'mongo'.
    
-   * _docker ps -a_
-       * You should see two containers as a result, one labeled as 'hyperprotectbackendsdk', and the other container as 'mongo'.
-   
-   * Copy the Container ID serial number from the above output, and use the _docker logs <containerID>_ command to check the logs. 
-       * If the app is running properly from the local machine, you will see output stating that the example app is running on port 3000.
+ * Copy the Container ID serial number from the above output, and use the _docker logs <containerID>_ command to check the logs. 
+     * If the app is running properly from the local machine, you will see output stating that the example app is running on port 3000.
 
 ![Example-Of-Docker-Commands](screenshots/docker_example.png)
 
