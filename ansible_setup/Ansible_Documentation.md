@@ -116,7 +116,7 @@ To validate that the app is running properly, and listening on port 3000, a simp
 
 **Curl Command**
 ```
-curl --cacert ./HyperProtectBackendSDK/certs/rootCA.crt --location --request POST 'https://{HPVS_IP_or_locahost}:3000/revisionRecord' \
+curl --cacert rootCA.crt --location --request POST 'https://{HPVS_IP_or_locahost}:3000/revisionRecord' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "entities": [
