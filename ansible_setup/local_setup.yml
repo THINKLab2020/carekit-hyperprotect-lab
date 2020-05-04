@@ -45,5 +45,8 @@
     - name: Generate CareKit SDK CRT
       shell: "openssl x509 -req -in {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/carekit-sdk.csr -CA {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/rootCA.crt -CAkey {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/rootCA.key -CAcreateserial -out {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/carekit-sdk.crt -days 500 -sha256"
 
-    - name: Running docker-compose
-      shell: "docker-compose -f {{ playbook_dir }}/HyperProtectBackendSDK-test/docker-compose.yml up"
+#    - name: Running docker-compose
+#      shell: "docker-compose -f {{ playbook_dir }}/HyperProtectBackendSDK-test/docker-compose.yml up"
+    - name: Running setup via docker-compose.yml
+      docker_compose:
+          project_src: "{{ playbook_dir }}/HyperProtectBackendSDK-test"
