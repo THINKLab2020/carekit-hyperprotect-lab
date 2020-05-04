@@ -6,10 +6,9 @@
   hosts: localhost
   become: true
   tasks:
-#    - name: Install required system packages
-#      apt: name={{ item }} state=latest update_cache=yes
-#      loop: [ 'curl', 'npm', 'docker.io', 'ufw', 'docker-compose', 'git', 'mongodb' ]
-#      ignore_errors: true
+    - name: Installing required 'pip' modules
+      pip:
+        name: docker-compose, docker
 
     - name: Clone github repo (SDK CareKit)
       git:
@@ -30,23 +29,11 @@
 #           src: /root/HyperProtectBackendSDK/cert.pem           #final copy src/dest when the repo is changed
 #           dest: /root/HyperProtectBackendSDK/src/
 
-    - name: Generate rootCA certificate
-      shell: "openssl genrsa -out {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/rootCA.key 4096"
+    - name: Creating SSL certificates
+      shell: "bash {{ playbook_dir }}/HyperProtectBackendSDK-test/generate_certs_local.sh"
+#      shell: "bash {{ playbook_dir }}/HyperProtectBackendSDK/generate_certs_local.sh"
 
-    - name: Generate rootCA key
-      shell: "openssl req -x509 -new -nodes -key {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/rootCA.key -sha256 -days 1024 -out {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/rootCA.crt -subj '/C=US/ST=NC/O=IBM/OU=ZaaS/CN=$1'"
-
-    - name: Generate CareKit SDK key
-      shell: "openssl genrsa -out {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/carekit-sdk.key 2048"
-
-    - name: Generate CareKit SDK CSR
-      shell: "openssl req -new -sha256 -key {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/carekit-sdk.key -subj '/C=US/ST=NC/O=IBM_ZaaS/CN=localhost' -out {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/carekit-sdk.csr"
-
-    - name: Generate CareKit SDK CRT
-      shell: "openssl x509 -req -in {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/carekit-sdk.csr -CA {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/rootCA.crt -CAkey {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/rootCA.key -CAcreateserial -out {{ playbook_dir }}/HyperProtectBackendSDK-test/certs/carekit-sdk.crt -days 500 -sha256"
-
-#    - name: Running docker-compose
-#      shell: "docker-compose -f {{ playbook_dir }}/HyperProtectBackendSDK-test/docker-compose.yml up"
     - name: Running setup via docker-compose.yml
       docker_compose:
           project_src: "{{ playbook_dir }}/HyperProtectBackendSDK-test"
+#          project_src: "{{ playbook_dir }}/HyperProtectBackendSDK"

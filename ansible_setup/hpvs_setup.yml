@@ -37,7 +37,7 @@
     - name: Copy rootCA.crt to local machine for validation test with curl/browser
       fetch:
         src: ~/HyperProtectBackendSDK-test/certs/rootCA.crt
-        dest: ~/
+        dest: "{{ playbook_dir }}/"
         mode: 0774
         flat: yes
 
