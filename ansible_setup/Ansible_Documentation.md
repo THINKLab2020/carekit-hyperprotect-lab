@@ -8,7 +8,7 @@ Please follow the listed steps below to clone this repository, and successfully 
     * Command for installation: _pip3 install ansible_
       * Please note that this command uses pip3, if you still have python2 as the default python interpreter, use 'pip' in lieu of pip3
 
-# Setup Steps
+# Initial setup prior to running playbook
 1. Clone the repository on the local machine
     * git clone https://github.com/e-desouza/carekit-hyperprotect-lab.git
     * This github repository containing the ansible playbooks has been made public in order to clone this repository 
