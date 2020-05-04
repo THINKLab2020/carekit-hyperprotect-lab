@@ -5,31 +5,41 @@
 - name: Configure Hyper Protect Virtual Server
   hosts: all
   become: true
-  vars:
   tasks:
     - name: Install required system packages
       apt: name={{ item }} state=latest update_cache=yes
-      loop: [ 'curl', 'npm', 'docker.io', 'ufw', 'docker-compose', 'git']
+      loop: [ 'curl', 'npm', 'docker.io', 'ufw', 'docker-compose', 'git', 'mongodb' ]
+      ignore_errors: true
 
     - name: Clone github repo (SDK CareKit)
       git:
           repo: https://github.com/Ry-is-me/HyperProtectBackendSDK-test.git
 #          repo: https://github.com/carekit-apple/HyperProtectBackendSDK.git    #actual SDK repo
-          dest: /root/HyperProtectBackendSDK-test
+          dest: ~/HyperProtectBackendSDK-test
 
     - name: "Create file on HPVS container for .env test"
       copy:
           content: "MONGO_DB={{ db }}"
-          dest: /root/HyperProtectBackendSDK-test/.env
+          dest: ~/HyperProtectBackendSDK-test/.env
 #          dest: /root/HyperProtectBackendSDK/.env
 
     - name: Copy 'cert.pem' file to the app's src/ directory
       copy:
-          src: /root/HyperProtectBackendSDK-test/cert.pem
-          dest: /root/HyperProtectBackendSDK-test/src/
-#          src: /root/HyperProtectBackendSDK/cert.pem           #final copy src/dest when the repo is changed
-#          dest: /root/HyperProtectBackendSDK/src/
+          src: ~/HyperProtectBackendSDK-test/certs/cert.pem
+          dest: ~/HyperProtectBackendSDK-test/src/
+#           src: /root/HyperProtectBackendSDK/cert.pem           #final copy src/dest when the repo is changed
+#           dest: /root/HyperProtectBackendSDK/src/
           remote_src: yes
+
+    - name: Run 'generate_certs' script for SSL certificates
+      shell: "bash ~/HyperProtectBackendSDK-test/generate_certs.sh {{ inventory_hostname }}"
+
+    - name: Copy rootCA.crt to local machine for validation test with curl/browser
+      fetch:
+        src: ~/HyperProtectBackendSDK-test/certs/rootCA.crt
+        dest: ~/
+        mode: 0774
+        flat: yes
 
     - name: Running setup via docker-compose.yml
       docker_compose:

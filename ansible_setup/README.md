@@ -26,24 +26,24 @@ Please follow the listed steps below to clone this repository, and successfully 
        ![Example-Of-Inventory-File](screenshots/hostFile.png)
 <br/>
 
-4. One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook.
+4. One last preparation prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the  mongo URI, as this value will be passed into the playbook as an extra variable.
      * Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
      * Example:
      ```
      mongodb://admin:password@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet=Wu-Tang_Clan
      ```
-      * Replace 'admin' and 'password' with the proper admin ID and correlated password into the MongoDB URI string provided after provisioning the DBaaS instance.
+      * Replace 'admin' and 'password' with the proper admin ID and correlated password
 <br/>
 
 5. Now that the Public IP address has been added as a listed host, and the location of the public SSH key was specified, it is now time to run the ansible playbook for setup. Use the following command in order to run the playbook properly.
     * Notice that the initial portion of the extra variable being passed to the playbook starts with _db=_. This is required to specify which variable is being passed to the ansible playbook.
     * Command Example:
     ```
-    ansible-playbook hpvs_setup.yml -e "db=mongodb://{admin_ID}:{Mongo_Password}@DBaaS_Mongo_URI:port.../admin?replicaSet=Cluster_Example"
+    ansible-playbook hpvs_setup.yml -e "db=mongodb://{admin_ID}:{Mongo_Password}@DBaaS_Mongo_URI:port/admin?replicaSet=Cluster_Example"
      ```
      <br/>
      
- ![Example-Of-Ansible-Command](screenshots/Command.png)
+     ![Example-Of-Ansible-Command](screenshots/Command.png)
  
  <br/>
  
@@ -52,9 +52,8 @@ Please follow the listed steps below to clone this repository, and successfully 
  
  <br/>
   
-**The HPVS configuration should now be complete, follow the validation test listed below to confirm the setup worked as intended.**
+** The HPVS configuration should now be complete, follow the validation test in the listed steps below to confirm the setup worked as intended. **
 
-<br/>
 
 # Validation Test
 To validate that the app is running properly, and listening on port 3000, a simple curl command can be issued to for verification. Please make certain that the IP address is changed in the http address after the POST declaration, as the goal is to hit the running application using the pulic IP addresss of the Virtual Server.
@@ -227,36 +226,4 @@ curl --location --request POST 'http://{HPVS_Public_IP_Address}:3000/revisionRec
 ```
 
 After the curl command has been issued, if successful the response will look similar to this screenshot:
-```
->     "knowledgeVector": {
->         "processes": [
->             { "id" : "1C43F648-D41A-4A5A-8708-15737425FA7C", "clock" : 10},
->             { "id" : "2B43F648-D41A-4A5A-8708-15737425FA7C", "clock" : 4}
->         ]
->     }
-> }'
-RevisionRecord stored
-```
-
-<br/>
-
-Another verification check is to check the Docker container logs on the Virtual Server. The docker logs can be checked as such:
-
-1. Check docker for running containers
-> docker ps -a
-	
-* Locate the Docker container ID
-	* Example: 
-	```
-	root@b4e8f18c497b:~# docker ps -a
-	CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS
-	c876afbe4704        hyperprotectbackendsdktest_app   "docker-entrypoint.s…"   2 hours ago         Up 2 hours          
-	```
-<br/>
-
-2. Use container ID from previous step to check current log entries
-> docker logs {Container_ID}
-	
-* View the Docker logs, traces of the curl command should be present as depicted in the screenshot below. 
-	
- ![Docker-Logs-Example](screenshots/Results.png)
+![Confirmation](screenshots/Confirmation.png)
