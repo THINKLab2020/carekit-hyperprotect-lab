@@ -1,4 +1,4 @@
-# HyperProtectSDK_Ansible
+# Ansible Lab Instructions
 Please follow the listed steps below to clone this repository, and successfully run the ansible playbook that configures the newly provisioned HPVS instance.
 - - - -
 
