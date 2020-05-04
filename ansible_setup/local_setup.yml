@@ -30,8 +30,8 @@
 #           dest: /root/HyperProtectBackendSDK/src/
 
     - name: Creating SSL certificates
-      shell: "bash {{ playbook_dir }}/HyperProtectBackendSDK-test/generate_certs_local.sh"
-#      shell: "bash {{ playbook_dir }}/HyperProtectBackendSDK/generate_certs_local.sh"
+      shell: "bash {{ playbook_dir }}/HyperProtectBackendSDK-test/generate_certs.sh localhost"
+#      shell: "bash {{ playbook_dir }}/HyperProtectBackendSDK/generate_certs.sh localhost"
 
     - name: Running setup via docker-compose.yml
       docker_compose:
