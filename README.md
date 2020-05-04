@@ -1,22 +1,26 @@
 ### THINK 2020 Virtual Lab :
 
-# Apple CareKit SDK + IBM Hyper Protect SDK
+# Apple CareKit SDK + IBM Hyper Protect SDK for iOS
 
-## May 06th 2020
+## May 06th 2020, 3:00 - 5:00 PM EST
 
 ### Moderators:
 
 - Elton de Souza (Cloud Native Client Success - IBM)
-- Erik Hornberger (iOS Engineer, Health - Apple)
-- Gavi Rawson (iOS Engineer, Health - Apple)
 - Mal Pattiaratchi (Apple-IBM Technical Leader - IBM)
-- Srinath Tupil (Engineering Manager - Apple)
 - Ryley Wharton (Client Success and Developer Advocate - IBM
 
 ### Agenda:
 
 1. [Create/re-use](docs/1_accounts.md) access IDs for Apple ID and IBM Cloud
-2. Deploy Apple CareKit Sample App (<https://github.com/carekit-apple/CareKit>)
+2. Build and run Apple CareKit Sample App (<https://github.com/carekit-apple/CareKit>)
 3. [Modify or add an OCKTask](docs/2_modify_ocktask.md) to modify the Sample App
 4. Provision a IBM Hyper Protect DBaaS and a IBM Hyper Protect Virtual Server instance following [these](docs/3_deploy_hyper_protect_services.md) instructions
 5. Integrate Hyper Protect SDK with Sample App following [these](docs/4_integrate_CareKitHyperProtectSDK_tutorial.md) instructions
+
+### Useful links:
+
+- Developer Blogpost:
+- Executive Blogpost:
+- Apple CareKit
+- IBM Cloud Hyper Protect Services
