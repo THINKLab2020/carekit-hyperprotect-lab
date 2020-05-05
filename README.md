@@ -126,7 +126,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
    - Choose the appropriate region to deploy the virtual server in, as well as a suitable pricing plan based on the technical requirements for the Virtual Server. _The 'free' payment option will be adequate for this lab_
 
    - Add any necessary tags for labeling the virtual server
-     - Copy and paste your public ssh key into the last field. This is a required step as the Virtual server is only accessible via ssh key. If you do not know how/where to find your ssh key, please follow [these](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) instructions.
+     - Copy and paste your public ssh key (`cat ~/.ssh/id_rsa.pub` locally) into the last field. This is a required step as the Virtual server is only accessible via ssh key. If you do not know how/where to find your ssh key, please follow [these](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) instructions.
      - After all required fields have been properly filled out, click the create button on the bottom right hand side of this page to begin provisioning of the Hyper Protect Virtual Server instance
 
 > As this will take some time, we will deploy a MongoDB instance in IBM Hyper Protect and then test the connection to this virtual server once that's complete.
@@ -147,7 +147,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 4. The non-essential fields will be left to the default values:
    - Create and add a 'Cluster Name' for the database. e.g. My_Mongo_Cluster
    - Choose an admin ID name for the MongoDB service, this ID will have full administrative access to the database e.g Example: admin
-   - Generate a password for the associated database admin user
+   - Generate a password for the associated database admin user (the Safari Keychain can do this for you)
 
 > Password requirements: 15 characters minimum, must include 1 capital letter, and 1 number, The use of non-alphanumeric symbols is not required but is recommended
 
