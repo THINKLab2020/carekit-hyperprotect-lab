@@ -230,7 +230,7 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 2. After the Github repo has been cloned to the local machine, go to the `carekit-hyperprotect-lab/ansible_setup` directory
 
-3. There are two ansible playbooks that can be run for bringing up the CareKit Backend SDK application. The first uses a HyperProtect Virtual Server, and DBaaS MongoDB instance. While the second option will configure the Backend SDK app on the local machine, uses localhost. Choose the next set of instructions accordingly.
+3. There are two ansible playbooks that can be run for bringing up the CareKit Backend SDK application. The first uses a HyperProtect Virtual Server, and DBaaS MongoDB instance. While the second option will configure the Backend SDK app on the local machine, uses localhost.Choose the next set of instructions accordingly.
 
 ## IBM Hyper Protect Virtual Server Bootstrapping with Ansible
 
@@ -266,8 +266,6 @@ deprecation_warnings=False
 #add public ssh key directory and filename as private_key_file value
 ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 ```
-
-   <br/>
 
 1.  One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook.
     _ Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
