@@ -15,7 +15,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
 - [Account setup](#account-setup)
 - [Deploy a Sample App with CareKit](#deploy-a-sample-app-with-carekit)
 - [Deploy a Hyper Protect Virtual Server instance](#deploy-a-hyper-protect-virtual-server-instance)
-  - [Connect to your Virtual Server](#connect-to-your-virtual-server)
+    - [Connect to your Virtual Server](#connect-to-your-virtual-server)
 - [Deploy a IBM Hyper Protect DBaaS for MongoDB instance](#deploy-a-ibm-hyper-protect-dbaas-for-mongodb-instance)
 - [Integrate IBM Hyper Protect with the Sample App](#integrate-ibm-hyper-protect-with-the-sample-app)
   - [IBM Hyper Protect MBaaS](#ibm-hyper-protect-mbaas)
@@ -25,10 +25,10 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [Bootstrapping your local dev environment](#bootstrapping-your-local-dev-environment)
   - [Validation Test](#validation-test)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-  - [Setup](#setup)
+    - [Setup](#setup)
   - [Troubleshooting](#troubleshooting)
-    - [Failure on docker-compose task](#failure-on-docker-compose-task)
-    - [Failure on validation steps using _rootCA.crt_](#failure-on-validation-steps-using-rootcacrt)
+      - [Failure on docker-compose task](#failure-on-docker-compose-task)
+      - [Failure on validation steps using _rootCA.crt_](#failure-on-validation-steps-using-rootcacrt)
 
 ### Useful links:
 
@@ -58,10 +58,17 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 > CareKit requires XCode 14.3+
 
 1. First `git clone https://github.com/THINKLab2020/CareKitHyperProtectSample.git`
-2. Click on 'CareKitHyperProtectSample.xcodeproj' to open up the project in XCode. Once the dependencies are downloaded, you should see this: ![](./docs/xcode-carekit.png)
+2. Click on 'CareKitHyperProtectSample.xcodeproj' to open up the project in XCode. Once the dependencies are downloaded, you should see this: 
+<p align="center" >
+ <img src="./docs/xcode-carekit.png" width="325" height="180">
+</p>
+
 3. Hit Run to build the sample app. The first run might take a while since it's building everything from source, but subsequent runs will be much quicker.
 4. You should see an app in the simulator:
-   ![carekit-basic](./docs/sample-app.png)
+
+    <p align="center" >
+        <img src="./docs/sample-app.png" width="221" height="471">
+    </p>
 5. The first view you see are tasks that were programmatically set up using `OCKTasks`. Tasks look at the populateSampleData() in the [AppDelegate.swift file](https://github.com/THINKLab2020/CareKitHyperProtectSample/blob/b3a0c3e7bd3f1a9ccea0a15bb96e7474626c44bd/CareKitHyperProtectSample/AppDelegate.swift#L60) to see how this was done.
 
 ```swift
@@ -88,7 +95,11 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
    - Changing text will be the easiest. You can change the `title` or `instruction` of the existing `doxylamine` OCKTask.
    - If you do decide to create a new task, it will need a schedule. You could also re-use the original `doxylamine` tasks' `schedule` for your new task with some imaginative times.
 
-8. Push build on your new app. In our case, we changed the text to acetaminophen (Tylenol) ![](./docs/sample-app-modified.png)
+8. Push build on your new app. In our case, we changed the text to acetaminophen (Tylenol)
+   
+   <p align="center" >
+   <img src="./docs/sample-app-modified.png" width="221" height="471">
+   </p>
 
 <br/>
 
@@ -219,35 +230,44 @@ Requires HPVS and MongoDB IBM Cloud instances
    - ansible.cfg
    - Within the ansible.cfg file, the value for environmental variable \_ansible\*ssh_private_key_file\* is currently an empty string. Add the location and name of your public SSH key used to provision the Hyper Protect Virtual Server
      - Example: ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
-       ![Example-Of-CFG-File](./ansible_setup/screenshots/cfgFile.png)
+
+ <p align="center" >
+    <img src="./ansible_setup/screenshots/cfgFile.png" width="450" height="125">
+</p>
        <br/>
 
    _ inventory.yml
    _ Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server
    \_ Example:
-   ![Example-Of-Inventory-File](./ansible_setup/screenshots/hostFile.png)
+   <p align="center" >
+    <img src="./ansible_setup/screenshots/hostFile.png" width="450" height="100">
+   </p>
    <br/>
 
-2. One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook.
+1. One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook.
    _ Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
    _ Example:
-   `mongodb://admin:password@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet=Wu-Tang_Clan` \* Replace 'admin' and 'password' with the proper admin ID and correlated password into the MongoDB URI string provided after provisioning the DBaaS instance.
+   `mongodb://admin:password@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet=Cluster_Example` 
+   * Replace 'admin' and 'password' with the proper admin ID and correlated password into the MongoDB URI string provided after provisioning the DBaaS instance.
    <br/>
 
-3. Now that the Public IP address has been added as a listed host, and the location of the public SSH key was specified, it is now time to run the ansible playbook for setup. Use the following command in order to run the playbook properly.
+2. Now that the Public IP address has been added as a listed host, and the location of the public SSH key was specified, it is now time to run the ansible playbook for setup. Use the following command in order to run the playbook properly.
    - Notice that the initial portion of the extra variable being passed to the playbook starts with _db=_. This is required to specify which variable is being passed to the ansible playbook.
    - Command Example:
    ```
    ansible-playbook hpvs_setup.yml -e "db=mongodb://{admin_ID}:{Mongo_Password}@DBaaS_Mongo_URI:port.../admin?replicaSet=Cluster_Example"
    ```
     <br/>
-
-![Example-Of-Ansible-Command](./ansible_setup/screenshots/Command.png)
+<p align="center" >
+ <img src="./ansible_setup/screenshots/Command.png" width="650" height="50">
+</p>
 
  <br/>
  
-4. Allow the playbook to run through it's designated tasks and configure the HPVS container.
-![Example-Of-Playbook-Running-Tasks](./ansible_setup/screenshots/Playbook.png)
+1. Allow the playbook to run through it's designated tasks and configure the HPVS container.
+<p align="center" >
+ <img src="./ansible_setup/screenshots/Playbook.png" width="450" height="175">
+</p>
  
  <br/>
   
@@ -468,12 +488,27 @@ _Note, this is a pre-1.0 release and is still in beta_
 This package can be imported into XCode using Swift Package Manager:
 
 ![spm-add-packages](./docs/spm-add-package.png)
+<p align="center" >
+ <img src="./docs/spm-add-package.png" width="300" height="200">
+</p>
 
 ![spm-add-git-url](./docs/spm-add-git-url.png)
 
+<p align="center" >
+ <img src="./docs/spm-add-git-url.png" width="320" height="200">
+</p>
+
 ![spm-git-master](./docs/spm-git-master.png)
 
+<p align="center" >
+ <img src="./docs/spm-git-master.png" width="320" height="200">
+</p>
+
 ![spm-add-target](./docs/spm-add-target.png)
+
+<p align="center" >
+ <img src="./docs/spm-add-target.png" width="320" height="200">
+</p>
 
 Now import the package with
 
