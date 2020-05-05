@@ -232,7 +232,7 @@ Requires HPVS and MongoDB IBM Cloud instances
      - Example: ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 
  <p align="center" >
-    <img src="./ansible_setup/screenshots/cfgFile.png" width="450" height="125">
+    <img src="./ansible_setup/screenshots/cfgFile.png" width="650" height="150">
 </p>
        <br/>
 
@@ -240,7 +240,7 @@ Requires HPVS and MongoDB IBM Cloud instances
    _ Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server
    \_ Example:
    <p align="center" >
-    <img src="./ansible_setup/screenshots/hostFile.png" width="450" height="100">
+    <img src="./ansible_setup/screenshots/hostFile.png" width="650" height="150">
    </p>
    <br/>
 
@@ -259,14 +259,14 @@ Requires HPVS and MongoDB IBM Cloud instances
    ```
     <br/>
 <p align="center" >
- <img src="./ansible_setup/screenshots/Command.png" width="650" height="50">
+ <img src="./ansible_setup/screenshots/Command.png" width="750" height="120">
 </p>
 
  <br/>
  
 1. Allow the playbook to run through it's designated tasks and configure the HPVS container.
 <p align="center" >
- <img src="./ansible_setup/screenshots/Playbook.png" width="450" height="175">
+ <img src="./ansible_setup/screenshots/Playbook.png" width="750" height="200">
 </p>
  
  <br/>
@@ -472,7 +472,7 @@ docker logs {Container_ID}
 4. View the Docker logs, traces of the curl command should be present as depicted in the screenshot below.
 
 <p align="center" >
- <img src="./ansible_setup/screenshots/Results.png" width="500" height="120">
+ <img src="./ansible_setup/screenshots/Results.png" width="750" height="120">
 </p>
 
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
@@ -491,25 +491,25 @@ This package can be imported into XCode using Swift Package Manager:
 
 ![spm-add-packages](./docs/spm-add-package.png)
 <p align="center" >
- <img src="./docs/spm-add-package.png" width="300" height="200">
+ <img src="./docs/spm-add-package.png" width="450" height="300">
 </p>
 
 ![spm-add-git-url](./docs/spm-add-git-url.png)
 
 <p align="center" >
- <img src="./docs/spm-add-git-url.png" width="320" height="200">
+ <img src="./docs/spm-add-git-url.png" width="450" height="300">
 </p>
 
 ![spm-git-master](./docs/spm-git-master.png)
 
 <p align="center" >
- <img src="./docs/spm-git-master.png" width="320" height="200">
+ <img src="./docs/spm-git-master.png" width="450" height="300">
 </p>
 
 ![spm-add-target](./docs/spm-add-target.png)
 
 <p align="center" >
- <img src="./docs/spm-add-target.png" width="320" height="200">
+ <img src="./docs/spm-add-target.png" width="450" height="300">
 </p>
 
 Now import the package with
