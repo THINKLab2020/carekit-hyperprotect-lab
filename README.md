@@ -111,9 +111,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 
 ---
 
-1. Log into the IBM Cloud dashboard (https://cloud.ibm.com)
-
-   - Please refer to the documentation on the _README_ page for further instructions on logging into IBM Cloud, or obtaining an IBM Cloud account
+1. Log into the IBM Cloud dashboard (https://cloud.ibm.com). Please refer to the documentation on the _README_ page for further instructions on logging into IBM Cloud, or obtaining an IBM Cloud account
 
 2. After the IBM Cloud homepage loads, click the blue 'Create Resource' button on the top right of the page, directly underneath the Cloud toolbar. Alternatively, the create resource function is accessible by selecting the 'Add Resource +' option underneath the Resource Summary table.
 
@@ -129,6 +127,8 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
    - Add any necessary tags for labeling the virtual server
      - Copy and paste your public ssh key into the last field. This is a required step as the Virtual server is only accessible via ssh key. If you do not know how/where to find your ssh key, please follow [these](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) instructions.
      - After all required fields have been properly filled out, click the create button on the bottom right hand side of this page to begin provisioning of the Hyper Protect Virtual Server instance
+
+> As this will take some time, please process to [Deploy a IBM Hyper Protect DBaaS for MongoDB instance](#deploy-a-ibm-hyper-protect-dbaas-for-mongodb-instance) below and come back to the connect step once that's done.
 
 ### Connect to your Virtual Server
 
@@ -171,8 +171,6 @@ After all required fields have been properly filled out, click the create button
 
 ---
 
-<br/>
-
 # Integrate IBM Hyper Protect with the Sample App
 
 _Goal_ : At the end of this section, you should have a fully running CareKit based app end-to-end that that consumes IBM Hyper Protect Services
@@ -187,8 +185,6 @@ The SDK consists of 2 layers:
 ---
 
 > ## **TODO : Include Arch Diagram**
-
-<br/>
 
 ---
 
@@ -208,16 +204,19 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 1. Install ansible via pip3 (or pip)
 
-   - In order to run this playbook on the local machine _ansible_ is a required package.
    - Command for installation: _pip3 install ansible_
      - Please note that this command uses pip3, if you still have python2 as the default python interpreter, use 'pip' in lieu of pip3
 
 2. Install docker-compose via pip3
 
-   - pip3 install docker-compose
+   ```bash
+   pip3 install docker-compose
+   ```
 
 3. Install docker
-   - pip3 install docker
+   ```bash
+   pip3 install docker
+   ```
 
 ## Initial setup to prepare for running ansible
 
@@ -577,7 +576,6 @@ Another verification che ck is to check the Docker container logs on the Virtual
 
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
 
-</br>
 <div style="page-break-after: always;"></div>
 
 # Integrate IBM Hyper Protect SDK for iOS into the Sample App
