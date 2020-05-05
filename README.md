@@ -429,7 +429,7 @@ To validate that the app is running properly, and listening on port 3000, a simp
 
 **Curl Command**
 
-```
+```bash
 curl --cacert rootCA.crt --location --request POST 'https://{HPVS_IP_or_locahost}:3000/revisionRecord' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -561,19 +561,19 @@ Another verification che ck is to check the Docker container logs on the Virtual
 
 2. Locate the Docker container ID
 
-```bash
-  root@b4e8f18c497b:~# docker ps -a
-  CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS
-  c876afbe4704        hyperprotectbackendsdktest_app   "docker-entrypoint.s…"   2 hours ago         Up 2 hours
-```
+   ```bash
+   root@b4e8f18c497b:~# docker ps -a
+   CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS
+   c876afbe4704        hyperprotectbackendsdktest_app   "docker-entrypoint.s…"   2 hours ago         Up 2 hours
+   ```
 
 3. Use container ID from previous step to check current log entries
 
-```bash
-docker logs {Container_ID}
-```
+   ```bash
+   docker logs {Container_ID}
+   ```
 
-1. View the hyperprotectbackendsdk Docker logs, traces of the curl command should be present.
+4. View the hyperprotectbackendsdk Docker logs, traces of the curl command should be present.
 
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
 
