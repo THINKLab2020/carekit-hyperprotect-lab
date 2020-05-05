@@ -471,7 +471,9 @@ docker logs {Container_ID}
 
 4. View the Docker logs, traces of the curl command should be present as depicted in the screenshot below.
 
-![Docker-Logs-Example](./ansible_setup/screenshots/Results.png)
+<p align="center" >
+ <img src="./ansible_setup/screenshots/Results.png" width="500" height="120">
+</p>
 
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
 
