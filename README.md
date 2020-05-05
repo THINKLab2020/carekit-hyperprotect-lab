@@ -112,11 +112,14 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 ---
 
 1. Log into the IBM Cloud dashboard (https://cloud.ibm.com)
+
    - Please refer to the documentation on the _README_ page for further instructions on logging into IBM Cloud, or obtaining an IBM Cloud account
 
-2) After the IBM Cloud homepage loads, click the blue 'Create Resource' button on the top right of the page, directly underneath the Cloud toolbar. Alternatively, the create resource function is accessible by selecting the 'Add Resource +' option underneath the Resource Summary table.
+2. After the IBM Cloud homepage loads, click the blue 'Create Resource' button on the top right of the page, directly underneath the Cloud toolbar. Alternatively, the create resource function is accessible by selecting the 'Add Resource +' option underneath the Resource Summary table.
+
    - The desired destination is the Cloud catalog, where all current available Cloud offerings are listed
    - In order to view the full list of Cloud offerings, ensure that the 'Services' tab is selected on the left-hand side of the catalog
+   <p align="center" > <img src="./docs/create-resource.png"></p>
 
 3. Within the catalog listings, locate and click on 'Hyper Protect Virtual Servers'.
 
@@ -280,6 +283,7 @@ Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook hpvs_se
  <br/>
  
 1. Allow the playbook to run through it's designated tasks and configure the HPVS container.
+
 ```bash
 PLAY [Configure Hyper Protect Virtual Server] **************************************************************************************************
 
@@ -320,7 +324,8 @@ changed: [169.63.212.61]
 PLAY RECAP ******************************************************************\*******************************************************************
 169.63.212.61 : ok=9 changed=7 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 
-````
+```
+
 </p>
 
  <br/>
@@ -343,7 +348,7 @@ Please note that while the local setup does _not_ require an IBM Cloud HPVS nor 
 ```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook local_setup.yml -K
 BECOME password:
-````
+```
 
 <br/>
 
