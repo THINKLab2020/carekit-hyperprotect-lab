@@ -58,17 +58,17 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 1. First `git clone https://github.com/THINKLab2020/CareKitHyperProtectSample.git`
 2. Click on 'CareKitHyperProtectSample.xcodeproj' to open up the project in XCode. Once the dependencies are downloaded, you should see this:
 <p align="center" >
- <img src="./docs/xcode-carekit.png" width="325" height="180">
+ <img src="./docs/xcode-carekit.png" style="width: 200px; height: 50%;">
 </p>
 
-3. Hit Run to build the sample app. The first run might take a while since it's building everything from source, but subsequent runs will be much quicker.
-4. You should see an app in the simulator:
+1. Hit Run to build the sample app. The first run might take a while since it's building everything from source, but subsequent runs will be much quicker.
+2. You should see an app in the simulator:
 
 <p align="center" >
-    <img src="./docs/sample-app.png" width="221" height="471">
+    <img src="./docs/sample-app.png" style="width: 200px; height: 50%;">
 </p>
 
-5. The first view you see are tasks that were programmatically set up using `OCKTasks`. Tasks look at the populateSampleData() in the [AppDelegate.swift file](https://github.com/THINKLab2020/CareKitHyperProtectSample/blob/b3a0c3e7bd3f1a9ccea0a15bb96e7474626c44bd/CareKitHyperProtectSample/AppDelegate.swift#L60) to see how this was done.
+1. The first view you see are tasks that were programmatically set up using `OCKTasks`. Tasks look at the populateSampleData() in the [AppDelegate.swift file](https://github.com/THINKLab2020/CareKitHyperProtectSample/blob/b3a0c3e7bd3f1a9ccea0a15bb96e7474626c44bd/CareKitHyperProtectSample/AppDelegate.swift#L60) to see how this was done.
 
 ```swift
         let thisMorning = Calendar.current.startOfDay(for: Date())
@@ -97,7 +97,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 8. Push build on your new app. In our case, we changed the text to acetaminophen (Tylenol)
 
    <p align="center" >
-   <img src="./docs/sample-app-modified.png" width="221" height="471">
+   <img src="./docs/sample-app-modified.png" style="width: 200px; height: 50%;">
    </p>
 
 <div style="page-break-after: always;"></div>
@@ -330,12 +330,12 @@ PLAY RECAP *********************************************************************
 
 > This section is only here for completeness. You will be using the services from IBM Cloud instead of localhost. Feel free to skip this step and jump to [Validation Tests](#validation-test)
 
-Please note that while the local setup does _not_ require an IBM Cloud HPVS nor DBaaS instance, a few local
+Please note that while the local setup does _not_ require an IBM Cloud HPVS nor DBaaS instance.
 
-1. Unlike the 'hpvs*setup.yml' playbook, the local setup already has the correct \_locahost* configurations written within the playbook itself, and does not require any other changes to the inventory file, nor ansible.cfg. Please use the listed command below to run the ansible script.
+1. Unlike the 'hpvs_setup.yml' playbook, the local setup already has the a predefined host configuration written within the playbook itself, and does not require any modifications. Please use the listed command below to run the ansible script.
 
 - Command: _ansible-playbook local_setup.yml -K_
-  - The _-K_ argument is required due to the playbook utilizing the "Become" parameter. Enter the local machine password (user profile credentials) when prompted.
+- The _-K_ argument is required due to the playbook utilizing the "Become" parameter. Enter the local machine password (user profile credentials) when prompted.
 
 ```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook local_setup.yml -K
