@@ -38,6 +38,9 @@
   - [Instructions for the 'hpvs_setup.yml' playbook](#instructions-for-the-hpvssetupyml-playbook)
   - [Instructions for the 'local_setup.yml' playbook](#instructions-for-the-localsetupyml-playbook)
   - [Validation Test](#validation-test)
+  - [**Troubleshooting**](#troubleshooting-1)
+    - [Failure on docker-compose task](#failure-on-docker-compose-task)
+    - [Failure on validation steps using _rootCA.crt_](#failure-on-validation-steps-using-rootcacrt)
 
 ### Useful links:
 
@@ -537,7 +540,7 @@ RevisionRecord stored
 
 <br/>
 
-Another verification check is to check the Docker container logs on the Virtual Server. The docker logs can be checked as such:
+Another verification check is to check the Docker container logs on the Virtual Server, or localhost. The docker logs can be checked as such:
 
 1. Check docker for running containers
 > docker ps -a
@@ -557,3 +560,29 @@ Another verification check is to check the Docker container logs on the Virtual 
 * View the Docker logs, traces of the curl command should be present as depicted in the screenshot below. 
   
  ![Docker-Logs-Example](./ansible_setup/screenshots/Results.png)
+
+
+## **Troubleshooting**
+There are a few potential issues that could arise while running the Ansible automation.
+
+### Failure on docker-compose task
+Error:
+```
+TASK [Running setup via docker-compose.yml] ****************************************************************************************************
+fatal: [169.63.212.61]: FAILED! => {"changed": false, "msg": "Failed to import the required Python library (Docker SDK for Python: docker (Python >= 2.7) or docker-py (Python 2.6)) on e7c65ce8b4cd's Python /usr/bin/python3. Please read module documentation and install in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter, for example via `pip install docker` or `pip install docker-py` (Python 2.6). The error was: No module named 'requests'"
+```
+Explanation and Resolution:
+
+The Hyper Protect Virtual Server has just installed the docker daemon for the first time. This particular error can be somewhat misleading, as it appears to be missing a pip/python package. However, this error is due to the docker daemon being installed, but not enabling quick enough before docker-compose is called. 
+* Wait 1-2 minutes and rerun the ansible playbook, no changes are required! 
+
+### Failure on validation steps using _rootCA.crt_
+Error:
+```
+curl: (35) error:04FFF084:rsa routines:CRYPTO_internal:data too large for modulus
+```
+
+Resolution:
+
+The SSL certificates were either created too quickly, causing the signing to fail, or the _rootCA.crt_ file did not copy from the Virtual Server to the local machine properly. 
+* scp root@{Public_IP_Address}:/root/HyperProtectBackendSDK/certs/rootCA.crt {directory_for_ansible}
