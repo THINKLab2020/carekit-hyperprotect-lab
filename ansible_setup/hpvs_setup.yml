@@ -8,7 +8,7 @@
   tasks:
     - name: Install required system packages
       apt: name={{ item }} state=latest update_cache=yes
-      loop: [ 'curl', 'npm', 'docker.io', 'ufw', 'docker-compose', 'git', 'mongodb' ]
+      loop: [ 'curl', 'npm', 'docker.io', 'ufw', 'docker-compose', 'git' ]
       ignore_errors: true
 
     - name: Clone github repo (SDK CareKit)
@@ -33,6 +33,8 @@
 
     - name: Run 'generate_certs' script for SSL certificates
       shell: "bash ~/HyperProtectBackendSDK-test/generate_certs.sh {{ inventory_hostname }}"
+
+    - pause: seconds=60
 
     - name: Copy rootCA.crt to local machine for validation test with curl/browser
       fetch:
