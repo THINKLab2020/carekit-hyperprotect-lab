@@ -205,12 +205,15 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 ## Prerequisites
 
-1. Install ansible via pip3 (or pip)
+1. Install ansible via pip3 (or pip) with:
 
-   - Command for installation: _pip3 install ansible_
-     - Please note that this command uses pip3, if you still have python2 as the default python interpreter, use 'pip' in lieu of pip3
+   ```bash
+   pip3 install docker-compose
+   ```
 
-2. Install docker-compose via pip3
+   Please note that this command uses pip3, if you still have python2 as the default python interpreter, use 'pip' in lieu of pip3
+
+2. or install docker-compose via pip3
 
    ```bash
    pip3 install docker-compose
@@ -231,13 +234,15 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 ## IBM Hyper Protect Virtual Server Bootstrapping with Ansible
 
-Requires HPVS and MongoDB IBM Cloud instances
+> Pre-requisites : IBM Hyper Protect Virtual Servers and MongoDB in IBM Hyper Protect DBaaS
 
-1. Two critical additions to the yml files must be made in order to successfully run the hpvs_setup.yml playbook. Add the following values accordingly:
+Two critical additions to the yml files must be made in order to successfully run the hpvs_setup.yml playbook. Add the following values accordingly:
 
-   - ansible.cfg
-   - Within the ansible.cfg file, the value for environmental variable \_ansible\*ssh_private_key_file\* is currently an empty string. Add the location and name of your public SSH key used to provision the Hyper Protect Virtual Server
-     - Example: ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
+_ansible.cfg:_
+
+Within the ansible.cfg file, the value for environmental variable `ansible_ssh_private_key_file` is currently an empty string. Add the location and name of your public SSH key used to provision the Hyper Protect Virtual Server
+
+Example: ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 
 ```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
@@ -247,11 +252,9 @@ Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
 169.63.212.61
 ```
 
-       <br/>
+_inventory.yml:_
 
-_ inventory.yml
-_ Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server
-\_ Example:
+Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server. Example:
 
 ```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat ansible.cfg
