@@ -26,9 +26,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [Validation Test](#validation-test)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
   - [Setup](#setup)
-  - [Troubleshooting](#troubleshooting)
-    - [Failure on docker-compose task](#failure-on-docker-compose-task)
-    - [Failure on validation steps using _rootCA.crt_](#failure-on-validation-steps-using-rootcacrt)
+- [Troubleshooting](#troubleshooting)
 
 ### Useful links:
 
@@ -37,7 +35,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
 - [CareKit](https://www.researchandcare.org/)
 - [IBM Cloud Hyper Protect Services](https://www.ibm.com/cloud/hyper-protect-services)
 
-<br/>
+<div style="page-break-after: always;"></div>
 
 ---
 
@@ -55,13 +53,15 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 
 # Deploy a Sample App with CareKit
 
-> CareKit requires XCode 14.3+
+> CareKit requires XCode 11.4+
 
 1. First `git clone https://github.com/THINKLab2020/CareKitHyperProtectSample.git`
 2. Click on 'CareKitHyperProtectSample.xcodeproj' to open up the project in XCode. Once the dependencies are downloaded, you should see this: ![](./docs/xcode-carekit.png)
 3. Hit Run to build the sample app. The first run might take a while since it's building everything from source, but subsequent runs will be much quicker.
 4. You should see an app in the simulator:
-   ![carekit-basic](./docs/sample-app.png)
+
+![carekit-basic](./docs/sample-app.png)
+
 5. The first view you see are tasks that were programmatically set up using `OCKTasks`. Tasks look at the populateSampleData() in the [AppDelegate.swift file](https://github.com/THINKLab2020/CareKitHyperProtectSample/blob/b3a0c3e7bd3f1a9ccea0a15bb96e7474626c44bd/CareKitHyperProtectSample/AppDelegate.swift#L60) to see how this was done.
 
 ```swift
@@ -90,7 +90,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 
 8. Push build on your new app. In our case, we changed the text to acetaminophen (Tylenol) ![](./docs/sample-app-modified.png)
 
-<br/>
+<div style="page-break-after: always;"></div>
 
 # Deploy a Hyper Protect Virtual Server instance
 
@@ -125,6 +125,8 @@ Now that both required Cloud services have been deployed, it is time to access t
   - After finding the public IP address, access a terminal and leverage the ssh protocol to navigate to the virtual server.
     _ Example ssh command: ssh root@{public_IP}
     _ The ID required for a successful ssh connection must be 'root'
+
+<!--div style="page-break-after: always;"></div-->
 
 # Deploy a IBM Hyper Protect DBaaS for MongoDB instance
 
@@ -168,13 +170,19 @@ The SDK consists of 2 layers:
 - The frontend Swift component that extends CareKit's functionality
 - The backend server that acts as a mediator between the frontend and the database
 
+---
+
 > ## **TODO : Include Arch Diagram**
 
 <br/>
 
 ---
 
+<!--div style="page-break-after: always;"></div-->
+
 ## IBM Hyper Protect MBaaS
+
+---
 
 _Goal_: At the end of this next section, the recently provisioned Hyper Protect Virtual server and Hyper Protect DBaaS Instance should be fully configured with the Backend SDK CareKit application. Follow the illustrated steps below to run the _ansible_ playbook for automated setup.
 
@@ -199,16 +207,11 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 ## Initial setup to prepare for running ansible
 
-1. Clone the repository on the local machine
-   _ git clone https://github.com/e-desouza/carekit-hyperprotect-lab.git
-   _ This github repository containing the ansible playbooks has been made public in order to clone this repository
-   <br/>
-2. After the Github repo has been cloned to the local machine, change the terminal directory to _carekit-hyperprotect-lab/ansible_setup_ \* cd Directory/whereRepository/wasCloned/carekit-hyperprotect-lab/ansible_setup
-   <br/>
+1. Clone the repository on the local machine `git clone https://github.com/e-desouza/carekit-hyperprotect-lab.git` This github repository containing the ansible playbooks has been made public in order to clone this repository
+
+2. After the Github repo has been cloned to the local machine, go to the `carekit-hyperprotect-lab/ansible_setup` directory
 
 3. There are two ansible playbooks that can be run for bringing up the CareKit Backend SDK application. The first uses a HyperProtect Virtual Server, and DBaaS MongoDB instance. While the second option will configure the Backend SDK app on the local machine, uses localhost. Choose the next set of instructions accordingly.
-
-<br/>
 
 ## IBM Hyper Protect Virtual Server Bootstrapping with Ansible
 
@@ -289,6 +292,8 @@ You should see two containers as a result, one labeled as 'hyperprotectbackendsd
 ![Example-Of-Docker-Commands](./ansible_setup/screenshots/docker_example.png)
 
 <br/>
+
+<div style="page-break-after: always;"></div>
 
 ## Validation Test
 
@@ -456,6 +461,7 @@ docker logs {Container_ID}
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
 
 </br>
+<div style="page-break-after: always;"></div>
 
 # Integrate IBM Hyper Protect SDK for iOS into the Sample App
 
@@ -494,11 +500,13 @@ By default if no backend API information is passed in, it will default to `https
 
 > > ## TODO
 
-## Troubleshooting
+<div style="page-break-after: always;"></div>
+
+# Troubleshooting
 
 There are a few potential issues that could arise while running the Ansible automation.
 
-#### Failure on docker-compose task
+_Failure on docker-compose task_
 
 Error:
 
@@ -513,7 +521,7 @@ The Hyper Protect Virtual Server has just installed the docker daemon for the fi
 
 - Wait 1-2 minutes and rerun the ansible playbook, no changes are required!
 
-#### Failure on validation steps using _rootCA.crt_
+**Failure on validation steps using \_rootCA.crt**
 
 Error:
 
