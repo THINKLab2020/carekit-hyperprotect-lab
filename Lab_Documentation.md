@@ -15,7 +15,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
 - [Account setup](#account-setup)
 - [Deploy a Sample App with CareKit](#deploy-a-sample-app-with-carekit)
 - [Deploy a Hyper Protect Virtual Server instance](#deploy-a-hyper-protect-virtual-server-instance)
-  - [Connect to your Virtual Server](#connect-to-your-virtual-server)
+    - [Connect to your Virtual Server](#connect-to-your-virtual-server)
 - [Deploy a IBM Hyper Protect DBaaS for MongoDB instance](#deploy-a-ibm-hyper-protect-dbaas-for-mongodb-instance)
 - [Integrate IBM Hyper Protect with the Sample App](#integrate-ibm-hyper-protect-with-the-sample-app)
   - [IBM Hyper Protect MBaaS](#ibm-hyper-protect-mbaas)
@@ -25,7 +25,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [Bootstrapping your local dev environment](#bootstrapping-your-local-dev-environment)
   - [Validation Test](#validation-test)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-  - [Setup](#setup)
+    - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
 
 ### Useful links:
@@ -227,24 +227,35 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 Requires HPVS and MongoDB IBM Cloud instances
 
-1. Two critical additions to the yml files must be made in order to successfully run the hpvs\*setup.yml playbook. Add the following values accordingly:
+1. Two critical additions to the yml files must be made in order to successfully run the hpvs_setup.yml playbook. Add the following values accordingly:
 
    - ansible.cfg
    - Within the ansible.cfg file, the value for environmental variable \_ansible\*ssh_private_key_file\* is currently an empty string. Add the location and name of your public SSH key used to provision the Hyper Protect Virtual Server
      - Example: ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 
- <p align="center" >
-    <img src="./ansible_setup/screenshots/cfgFile.png" width="650" height="150">
-</p>
+```bash
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml 
+[hosts]
+# if running locally local_setup.yml is already pointed towards 'localhost' and no change needs to be made
+#add HPVS public IP below this comment
+169.63.212.61
+```
        <br/>
 
 _ inventory.yml
 _ Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server
 \_ Example:
 
-   <p align="center" >
-    <img src="./ansible_setup/screenshots/hostFile.png" width="650" height="150">
-   </p>
+```bash
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat ansible.cfg 
+[defaults]
+inventory = inventory.yml
+remote_user = root
+deprecation_warnings=False
+
+#add public ssh key directory and filename as private_key_file value
+ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
+```
    <br/>
 
 1.  One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook.
@@ -261,13 +272,55 @@ _ Underneath the commented line, add the public IP address of the Hyper Protect 
     ```
     ansible-playbook hpvs_setup.yml -e "db=mongodb://{admin_ID}:{Mongo_Password}@DBaaS_Mongo_URI:port.../admin?replicaSet=Cluster_Example"
     ```
-        <br/>
-    ![](./ansible_setup/screenshots/Command.png)
+<br/>
+
+```bash
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:dbaasPassword123@dbaas30.hyperp-dbaas.cloud.ibm.com:28008,dbaas29.hyperp-dbaas.cloud.ibm.com:28097,dbaas31.hyperp-dbaas.cloud.ibm.com:28191/admin?replicaSet=Cluster_1"
+```
 
  <br/>
  
-3. Allow the playbook to run through it's designated tasks and configure the HPVS container.
-![](./ansible_setup/screenshots/Playbook.png)
+1. Allow the playbook to run through it's designated tasks and configure the HPVS container.
+```bash
+PLAY [Configure Hyper Protect Virtual Server] **************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************
+ok: [169.63.212.61]
+
+TASK [Install required system packages] ********************************************************************************************************
+changed: [169.63.212.61] => (item=curl)
+changed: [169.63.212.61] => (item=npm)
+changed: [169.63.212.61] => (item=docker.io)
+changed: [169.63.212.61] => (item=ufw)
+changed: [169.63.212.61] => (item=docker-compose)
+ok: [169.63.212.61] => (item=git)
+
+TASK [Clone github repo (SDK CareKit)] *********************************************************************************************************
+changed: [169.63.212.61]
+
+TASK [Create file on HPVS container for .env test] *********************************************************************************************
+changed: [169.63.212.61]
+
+TASK [Copy 'cert.pem' file to the app's src/ directory] ****************************************************************************************
+changed: [169.63.212.61]
+
+TASK [Run 'generate_certs' script for SSL certificates] ****************************************************************************************
+changed: [169.63.212.61]
+
+TASK [pause] ***********************************************************************************************************************************
+Pausing for 60 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [169.63.212.61]
+
+TASK [Copy rootCA.crt to local machine for validation test with curl/browser] ******************************************************************
+changed: [169.63.212.61]
+
+TASK [Running setup via docker-compose.yml] ****************************************************************************************************
+changed: [169.63.212.61]
+
+PLAY RECAP *************************************************************************************************************************************
+169.63.212.61              : ok=9    changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 </p>
  
  <br/>
@@ -287,14 +340,42 @@ Please note that while the local setup does _not_ require an IBM Cloud HPVS nor 
 - Command: _ansible-playbook local_setup.yml -K_
   - The _-K_ argument is required due to the playbook utilizing the "Become" parameter. Enter the local machine password (user profile credentials) when prompted.
 
-![Run-Local-Setup](./ansible_setup/screenshots/local_setup.png)
+```bash
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook local_setup.yml -K
+BECOME password: 
+```
 
 <br/>
 
 2. Allow the playbook to run and complete the predefined tasks.
 
-![Playbook-After-Completion](./ansible_setup/screenshots/finished_playbook.png)
+```bash
+PLAY [Configure Hyper Protect Virtual Server] **************************************************************************************************
 
+TASK [Gathering Facts] *************************************************************************************************************************
+ok: [localhost]
+
+TASK [Installing required 'pip' modules] *******************************************************************************************************
+ok: [localhost]
+
+TASK [Clone github repo (SDK CareKit)] *********************************************************************************************************
+changed: [localhost]
+
+TASK [Create file on HPVS container for .env test] *********************************************************************************************
+changed: [localhost]
+
+TASK [Copy 'cert.pem' file to the app's src/ directory] ****************************************************************************************
+changed: [localhost]
+
+TASK [Creating SSL certificates] ***************************************************************************************************************
+changed: [localhost]
+
+TASK [Running setup via docker-compose.yml] ****************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************************************
+localhost                  : ok=7    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 <br/>
 
 3. In order to ensure that the Backend SDK app was created properly, use the following docker commands to check.
@@ -307,7 +388,21 @@ You should see two containers as a result, one labeled as 'hyperprotectbackendsd
 
 4. Copy the Container ID serial number from the above output, and use the _docker logs <containerID>_ command to check the logs. If the app is running properly from the local machine, you will see output stating that the example app is running on port 3000.
 
-![Example-Of-Docker-Commands](./ansible_setup/screenshots/docker_example.png)
+```bash
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ docker  ps -a
+CONTAINER ID        IMAGE                             COMMAND                  CREATED              STATUS              PORTS                               NAMES
+1072137b9f78        hyperprotectbackendsdk-test_app   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:3000->3000/tcp, 27017/tcp   app
+fdd1014096ce        mongo                             "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:27017->27017/tcp            mongo
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ docker logs  1072137b9f78
+
+> hyper-protect-sdk-backend@0.0.1 start /usr/app/carekit-hyperprotect
+> set debug=* && ts-node-dev --respawn --transpileOnly ./src/index.ts
+
+Using ts-node version 8.10.1, typescript version 3.8.3
+(node:25) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+UUID : 7263588F-09C1-488C-9248-539060C0D124
+Example app listening on port 3000! Go to https://localhost:3000/
+```
 
 <br/>
 
@@ -472,11 +567,9 @@ Another verification check is to check the Docker container logs on the Virtual 
 docker logs {Container_ID}
 ```
 
-4. View the Docker logs, traces of the curl command should be present as depicted in the screenshot below.
+1. View the hyperprotectbackendsdk Docker logs, traces of the curl command should be present.
 
-<p align="center" >
- <img src="./ansible_setup/screenshots/Results.png" width="750" height="120">
-</p>
+
 
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
 
@@ -538,7 +631,7 @@ _Failure on docker-compose task_
 
 Error:
 
-```
+```bash
 TASK [Running setup via docker-compose.yml] ****************************************************************************************************
 fatal: [169.63.212.61]: FAILED! => {"changed": false, "msg": "Failed to import the required Python library (Docker SDK for Python: docker (Python >= 2.7) or docker-py (Python 2.6)) on e7c65ce8b4cd's Python /usr/bin/python3. Please read module documentation and install in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter, for example via `pip install docker` or `pip install docker-py` (Python 2.6). The error was: No module named 'requests'"
 ```
