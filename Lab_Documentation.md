@@ -258,15 +258,12 @@ Requires HPVS and MongoDB IBM Cloud instances
    ansible-playbook hpvs_setup.yml -e "db=mongodb://{admin_ID}:{Mongo_Password}@DBaaS_Mongo_URI:port.../admin?replicaSet=Cluster_Example"
    ```
     <br/>
-<p align="center" >
- <img src="./ansible_setup/screenshots/Command.png" width="750" height="120">
-</p>
+![](./ansible_setup/screenshots/Command.png)
 
  <br/>
  
-1. Allow the playbook to run through it's designated tasks and configure the HPVS container.
-<p align="center" >
- <img src="./ansible_setup/screenshots/Playbook.png" width="750" height="200">
+3. Allow the playbook to run through it's designated tasks and configure the HPVS container.
+![](./ansible_setup/screenshots/Playbook.png)
 </p>
  
  <br/>
@@ -489,27 +486,27 @@ _Note, this is a pre-1.0 release and is still in beta_
 
 This package can be imported into XCode using Swift Package Manager:
 
-![spm-add-packages](./docs/spm-add-package.png)
+
 <p align="center" >
- <img src="./docs/spm-add-package.png" width="450" height="300">
+ <img src="./docs/spm-add-package.png">
 </p>
 
-![spm-add-git-url](./docs/spm-add-git-url.png)
+
 
 <p align="center" >
- <img src="./docs/spm-add-git-url.png" width="450" height="300">
+ <img src="./docs/spm-add-git-url.png">
 </p>
 
-![spm-git-master](./docs/spm-git-master.png)
+
 
 <p align="center" >
- <img src="./docs/spm-git-master.png" width="450" height="300">
+ <img src="./docs/spm-git-master.png">
 </p>
 
-![spm-add-target](./docs/spm-add-target.png)
+
 
 <p align="center" >
- <img src="./docs/spm-add-target.png" width="450" height="300">
+ <img src="./docs/spm-add-target.png">
 </p>
 
 Now import the package with
