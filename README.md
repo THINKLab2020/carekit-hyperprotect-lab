@@ -15,8 +15,9 @@ May 06th 2020, 3:00 - 5:00 PM EST
 - [Account setup](#account-setup)
 - [Deploy a Sample App with CareKit](#deploy-a-sample-app-with-carekit)
 - [Deploy a Hyper Protect Virtual Server instance](#deploy-a-hyper-protect-virtual-server-instance)
-    - [Connect to your Virtual Server](#connect-to-your-virtual-server)
 - [Deploy a IBM Hyper Protect DBaaS for MongoDB instance](#deploy-a-ibm-hyper-protect-dbaas-for-mongodb-instance)
+    - [Test your MongoDB instances (optional)](#test-your-mongodb-instances-optional)
+    - [Connect to your Virtual Server](#connect-to-your-virtual-server)
 - [Integrate IBM Hyper Protect with the Sample App](#integrate-ibm-hyper-protect-with-the-sample-app)
   - [IBM Hyper Protect MBaaS](#ibm-hyper-protect-mbaas)
   - [Prerequisites](#prerequisites)
@@ -128,17 +129,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
      - Copy and paste your public ssh key into the last field. This is a required step as the Virtual server is only accessible via ssh key. If you do not know how/where to find your ssh key, please follow [these](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) instructions.
      - After all required fields have been properly filled out, click the create button on the bottom right hand side of this page to begin provisioning of the Hyper Protect Virtual Server instance
 
-> As this will take some time, please process to [Deploy a IBM Hyper Protect DBaaS for MongoDB instance](#deploy-a-ibm-hyper-protect-dbaas-for-mongodb-instance) below and come back to the connect step once that's done.
-
-### Connect to your Virtual Server
-
-Now that both required Cloud services have been deployed, it is time to access the newly provisioned virtual server using ssh protocol
-
-- To obtain the public IP address of the virtual server, navigate to the Cloud dashboard homepage, and click on 'Services' in the Resource Summary box. Once the deployed services are listed, locate the Hyper Protect virtual server instance and click on the name. The public IP address will be displayed on the following screen.
-
-  - After finding the public IP address, access a terminal and leverage the ssh protocol to navigate to the virtual server.
-    _ Example ssh command: ssh root@{public_IP}
-    _ The ID required for a successful ssh connection must be 'root'
+> As this will take some time, we will deploy a MongoDB instance in IBM Hyper Protect and then test the connection to this virtual server once that's complete.
 
 <!--div style="page-break-after: always;"></div-->
 
@@ -168,6 +159,18 @@ After all required fields have been properly filled out, click the create button
 
 - [HPVS Documentation](https://cloud.ibm.com/docs/services/hp-virtual-servers?topic=hp-virtual-servers-getting-started)
 - [DBaaS Documentation](https://cloud.ibm.com/docs/services/hyper-protect-dbaas-for-mongodb?topic=hyper-protect-dbaas-for-mongodb-gettingstarted)
+
+### Test your MongoDB instances (optional)
+
+### Connect to your Virtual Server
+
+Now that both required Cloud services have been deployed, it is time to access the newly provisioned virtual server using ssh protocol
+
+- To obtain the public IP address of the virtual server, navigate to the Cloud dashboard homepage, and click on 'Services' in the Resource Summary box. Once the deployed services are listed, locate the Hyper Protect virtual server instance and click on the name. The public IP address will be displayed on the following screen.
+
+  - After finding the public IP address, access a terminal and leverage the ssh protocol to navigate to the virtual server.
+    _ Example ssh command: ssh root@{public_IP}
+    _ The ID required for a successful ssh connection must be 'root'
 
 ---
 
