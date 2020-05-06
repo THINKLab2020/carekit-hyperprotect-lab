@@ -382,16 +382,33 @@ Now import the package in `AppDelegate.swift` with
 import IBMHyperProtectSDK
 ```
 
-and pass it in to your OCKStore:
+and pass it in to your OCKStore by replacing the below line (still in AppDelegate.swift)
 
 ```swift
 
-let remote = IBMMongoRemote()
-let store = OCKStore(name: "SampleAppStore", type:
-  .inMemory, remote: remote)
+ let store = OCKStore(name: "SampleAppStore", type: .inMemory)
 ```
 
-By default if no backend API information is passed in, it will default to `https://localhost:3000` . Pass in the `apiLocation` parameter to point to your IBM Hyper Protect MBaaS deployed locally for development or in IBM Cloud.
+with this
+
+```swift
+
+let remote = IBMMongoRemote(apiLocation: “{HPVS_Public_IP}:3000“, apiTimeOut: 2.0)
+let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
+
+```
+
+and finallyu make sure to replace {HPVS_Public_IP} with your server IP address e.g.
+
+```swift
+
+let remote = IBMMongoRemote(apiLocation: “169.63.212.34:3000“, apiTimeOut: 2.0)
+let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
+
+```
+
+Note: by default if no backend API information is passed in, it will default to `https://localhost:3000` .
+
 
 To test synchronization with the MBaaS, run the app and select some outcomes:
 
