@@ -403,7 +403,7 @@ with this
 
 ```swift
 
-let remote = IBMMongoRemote(apiLocation: "http://{HPVS_Public_IP}:3000", apiTimeOut: 2.0)
+let remote = IBMMongoRemote(apiLocation: "http://{HPVS_Public_IP}:3000/", apiTimeOut: 2.0)
 let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
 
 ```
@@ -412,7 +412,7 @@ and finally make sure to replace {HPVS_Public_IP} with your server IP address e.
 
 ```swift
 
-let remote = IBMMongoRemote(apiLocation: "http://169.63.212.34:3000", apiTimeOut: 2.0)
+let remote = IBMMongoRemote(apiLocation: "http://169.63.212.34:3000/", apiTimeOut: 2.0)
 let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
 
 ```
