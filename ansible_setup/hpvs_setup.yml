@@ -13,26 +13,22 @@
 
     - name: Clone github repo (SDK CareKit)
       git:
-          repo: https://github.com/Ry-is-me/HyperProtectBackendSDK-test.git
-#          repo: https://github.com/carekit-apple/HyperProtectBackendSDK.git    #actual SDK repo
-          dest: ~/HyperProtectBackendSDK-test
+          repo: https://github.com/carekit-apple/IBM-HyperProtectMBaaS.git
+          dest: ~/IBM-HyperProtectMBaaS
 
     - name: "Create file on HPVS container for .env test"
       copy:
           content: "MONGO_DB={{ db }}"
-          dest: ~/HyperProtectBackendSDK-test/.env
-#          dest: /root/HyperProtectBackendSDK/.env
+          dest: ~/IBM-HyperProtectMBaaS/.env
 
-    - name: Copy 'cert.pem' file to the app's src/ directory
+    - name: Copy 'cert.pem' file from local to Virtual Server
       copy:
-          src: ~/HyperProtectBackendSDK-test/certs/cert.pem
-          dest: ~/HyperProtectBackendSDK-test/src/
-#           src: /root/HyperProtectBackendSDK/cert.pem           #final copy src/dest when the repo is changed
-#           dest: /root/HyperProtectBackendSDK/src/
-          remote_src: yes
+          src: "{{ playbook_dir }}/cert.pem"
+          dest: ~/IBM-HyperProtectMBaaS/src/
+
 
     - name: Run 'generate_certs' script for SSL certificates
-      shell: "bash ~/HyperProtectBackendSDK-test/generate_certs.sh {{ inventory_hostname }}"
+      shell: "bash ~/IBM-HyperProtectMBaaS/generate_certs.sh {{ inventory_hostname }}"
       ignore_errors: true
 
     - pause: seconds=90
@@ -40,13 +36,12 @@
 
     - name: Running setup via docker-compose.yml
       docker_compose:
-          project_src: /root/HyperProtectBackendSDK-test
-#          project_src: /root/HyperProtectBackendSDK
+          project_src: /root/IBM-HyperProtectMBaaS
 
     - pause: seconds=20
 
     - name:
-      shell: "bash ~/HyperProtectBackendSDK-test/copy_cert.sh"
+      shell: "bash ~/IBM-HyperProtectMBaaS/copy_cert.sh"
 
     - name: Copy rootCA.crt to local machine for validation test with curl/browser
       fetch:

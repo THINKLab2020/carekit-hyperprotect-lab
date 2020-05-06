@@ -228,7 +228,7 @@ Note: if pip3 fails, re-run the commands using just pip
 
 2. After the Github repo has been cloned to the local machine, change directories to `carekit-hyperprotect-lab/ansible_setup`.
 
-3. There are two available playbooks that can be run for bringing up the CareKit Backend SDK application. The first playbook uses the HPVS and HPDBaaS instances recently provisioned. While the second option will configure the Backend SDK app on the local machine instead. Choose the next set of instructions accordingly.
+3. Use the instructions below to run the Ansible playbook for bringing up the CareKit Backend SDK application. It uses the HPVS and HPDBaaS instances recently provisioned.
 
 ### Bootstrapping Hyper Protect Virtual Server
 
@@ -310,114 +310,32 @@ PLAY REC******************************************************************\*****
 ```
 
  <br/>
+ 
+NOTE 1: If on the TASK [Run 'generate_certs' script for SSL certificates] there is an error - this is fine, these errors are expected.
+
+NOTE 2: If on the TASK [Running setup via docker-compose.yml] there is an error - please re-run the command.
 
 **The HPVS configuration should now be complete, follow the validation test section listed below to confirm the setup worked as intended.**
 
 <br/>
 
-### Bootstrapping local dev environment
-
-> This section is only here for completeness. You will be using the services from IBM Cloud instead of localhost so you can skip this section for the lab
-
-Please note that while the local setup does _not_ require an IBM Cloud HPVS nor DBaaS instance, a few local
-
-Unlike the 'hpvs_setup.yml' playbook, the local setup already has the correct host configuration written within the playbook itself, and does not require any additional file modifications. Please use the listed command below to run the ansible script.
-
-Do note that a prompt will occur for the _BECOME_ password due to the _-K_ parameter being passed into the command. When prompted for the password, enter your local machine password, as the password is required when setting up the application.
-
-```bash
-$ ansible-playbook local_setup.yml -K
-```
-
-Allow the playbook to run and complete the predefined playbook tasks.
-
-```bash
-PLAY [Configure Hyper Protect Virtual Server**************************************************************************************************
-
-TASK [GatherinFacts*********************************************************************************************************************
-ok: [localhost
-TASK [Installing required 'pip' modules*****************************************************************************************************
-ok: [localhost]
-...
-TASK [Running setup via docker-compose.yml]***************************************************************************************************
-changed: [localhost]
-PLAY RECAP************************************************************************************************************************************
-localhost                  : ok=7    changed=5    unreachable=0    failed=0    skipped=0   rescued=0    ignored=0
-```
-
-<br/>
-
-In order to ensure that the Backend SDK app was created properly, use the following docker commands to check for containers currently running.
-
-```bash
-docker ps -a
-```
-
-You should see two new containers as a result, one labeled as 'hyperprotectbackendsdk', and the other container as 'mongo'.
-
-Copy the Container ID serial number for the 'hyperprotectbackendsdk' from the above output, and use the _docker logs <containerID>_ command to verify the logs. If the app is running properly from the local machine, you will see output stating that the example app is running on port 3000.
-
-```bash
-$ docker  ps -a
-CONTAINER ID        IMAGE                             COMMAND                  CREATED              STATUS              PORTS                               NAMES
-1072137b9f78        hyperprotectbackendsdk-test_app   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:3000->3000/tcp, 27017/tcp   app
-fdd1014096ce        mongo                             "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:27017->27017/tcp            mongo
-$ docker logs  1072137b9f78
-
-> hyper-protect-sdk-backend@0.0.1 start /usr/app/carekit-hyperprotect
-> set debug=* && ts-node-dev --respawn --transpileOnly ./src/index.ts
-
-Using ts-node version 8.10.1, typescript version 3.8.
-
-UUID : 7263588F-09C1-488C-9248-539060C0D124
-Example app listening on port 3000! Go to https://localhost:3000/
-```
-
-<div style="page-break-after: always;"></div>
-
-<br/>
-
 **Validation Test**
 
-To validate that the app is running properly, a simple curl command can be issued to for verification. Please make certain to change the `{HPVS_IP_or_locahost}` to either the HPVS public IP address, or _localhost_ if the local_setup was run.
+To validate that the app is running properly, a simple curl command can be issued to for verification. Please make certain to change the `{HPVS_Public_IP}` entry to the actual HPVS public address used in the earlier steps.
 
 This curl command should be executed from the local machine, while pointing the _cacert_ argument at the rootCA.crt file, as shown below.
 
 **Curl Command**
 
 ```bash
-curl --cacert rootCA.crt --location --request POST 'https://{HPVS_IP_or_locahost}:3000/revisionRecord' \
+curl --cacert rootCA.crt --location --request POST 'https://{HPVS_Public_IP}:3000/revisionRecord' \
 --header 'Content-Type: application/json' \
---data-raw verification.json
+--data @verification.json
 ```
 
 After the curl command has been issued, if successful you will see a `RevisionRecord stored` message.
 
 <br/>
-
-Another verification check is to check the Docker container logs on the Virtual Server, or localhost. The docker logs can be checked as such:
-
-1. Check docker for running containers
-
-   ```bash
-    docker ps -a
-   ```
-
-2. Locate the Docker container ID
-
-   ```bash
-   root@b4e8f18c497b:~# docker ps -a
-   CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS
-   c876afbe4704        hyperprotectbackendsdktest_app   "docker-entrypoint.s…"   2 hours ago         Up 2 hours
-   ```
-
-3. Use container ID from previous step to check current log entries
-
-   ```bash
-   docker logs {Container_ID}
-   ```
-
-4. View the hyperprotectbackendsdk Docker logs, traces of the curl command should be present.
 
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
 
@@ -436,35 +354,64 @@ This package can be imported into XCode using Swift Package Manager:
 <p align="center" >
  <img src="./docs/spm-add-package.png" width="290" height=230">>
 </p>
+                                                              
+<p align="center">
+  Go to File -> Swift Packages -> Add Package Dependency
+</p>
 
 <p align="center" >
  <img src="./docs/spm-add-git-url.png" width="383" height=238">
+</p>
+                                                              
+<p align="center">
+  Put in https://github.com/carekit-apple/IBM-HyperProtectSDK.git
 </p>
 
 <p align="center" >
  <img src="./docs/spm-git-master.png" width="383" height=238">
 </p>
 
+<p align="center">
+  Make sure to change the branch to master
+</p>
+
 <p align="center" >
  <img src="./docs/spm-add-target.png" width="383" height=238">
 </p>
 
-Now import the package with
+Now import the package in `AppDelegate.swift` with
 
 ```swift
 import IBMHyperProtectSDK
 ```
 
-and pass it in to your OCKStore:
+and pass it in to your OCKStore by replacing the below line (still in AppDelegate.swift)
 
 ```swift
 
-let remote = IBMMongoRemote()
-let store = OCKStore(name: "SampleAppStore", type:
-  inMemory, remote: remote)
+ let store = OCKStore(name: "SampleAppStore", type: .inMemory)
 ```
 
-By default if no backend API information is passed in, it will default to `https://localhost:3000` . Pass in the `apiLocation` parameter to point to your IBM Hyper Protect MBaaS deployed locally for development or in IBM Cloud.
+with this
+
+```swift
+
+let remote = IBMMongoRemote(apiLocation: “https://{HPVS_Public_IP}:3000“, apiTimeOut: 2.0)
+let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
+
+```
+
+and finally make sure to replace {HPVS_Public_IP} with your server IP address e.g.
+
+```swift
+
+let remote = IBMMongoRemote(apiLocation: “https://169.63.212.34:3000“, apiTimeOut: 2.0)
+let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
+
+```
+
+Note: by default if no backend API information is passed in, it will default to `https://localhost:3000` .
+
 
 To test synchronization with the MBaaS, run the app and select some outcomes:
 
