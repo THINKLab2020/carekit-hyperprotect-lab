@@ -20,7 +20,6 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [IBM Hyper Protect MBaaS](#ibm-hyper-protect-mbaas)
   - [Bootstrapping with Ansible](#bootstrapping-with-ansible)
     - [Bootstrapping Hyper Protect Virtual Server](#bootstrapping-hyper-protect-virtual-server)
-    - [Bootstrapping local dev environment](#bootstrapping-local-dev-environment)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
   - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
@@ -182,7 +181,11 @@ The SDK consists of 2 layers:
 
 ---
 
-> ## **TODO : Include Arch Diagram**
+This is what the end to end architecture looks like:
+
+ <p align="center" >
+   <img src="./docs/architecture.png" width="700">
+ </p>
 
 ---
 
@@ -412,20 +415,19 @@ let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
 
 Note: by default if no backend API information is passed in, it will default to `https://localhost:3000` .
 
-
 To test synchronization with the MBaaS, run the app and select some outcomes:
 
 <p align="center">
  <img src="./docs/sdk-stop-app.png" width="398" height=266">
 </p>
 
-Next, stop your app but clicking the square icon at the top left of XCode.
+Next, stop your app by clicking the square icon at the top left of XCode.
 
 <p align="center">
  <img src="./docs/sdk-stop-app.png" width="398" height=266">
 </p>
 
-Comment out the programmatic generation of tasks on line 44 of AppDelegate.swift:
+Comment out the programmatic generation of tasks in AppDelegate.swift by commenting `store.populateSampleData()` like this:
 
 ```swift
     // Manages synchronization of a CoreData store
