@@ -327,7 +327,7 @@ This curl command should be executed from the local machine, while pointing the 
 ```bash
 curl --cacert rootCA.crt --location --request POST 'https://{HPVS_Public_IP}:3000/revisionRecord' \
 --header 'Content-Type: application/json' \
---data-raw verification.json
+--data @verification.json
 ```
 
 After the curl command has been issued, if successful you will see a `RevisionRecord stored` message.
