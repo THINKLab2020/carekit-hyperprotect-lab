@@ -276,6 +276,12 @@ $ cat inventory.yml
 {Public_IP_Address}
 ```
 
+You can get your public IP by looking at the:
+
+<p align="center">
+ <img src="./docs/hpvs-dashboard-ip.png" width="900">
+</p>
+
 Please goto the MongoDB service you created on the IBM Cloud and then click on the copy icon next to where it says "To connect to your database(s) with Compass, use the URL below."
 
 <<put screenshot>>
@@ -359,7 +365,7 @@ _Note, this is a pre-1.0 release and is still in beta_
 This package can be imported into XCode using Swift Package Manager:
 
 <p align="center" >
- <img src="./docs/spm-add-package.png" width="290" height=230">>
+ <img src="./docs/spm-add-package.png" width="360">
 </p>
                                                               
 <p align="center">
@@ -367,7 +373,7 @@ This package can be imported into XCode using Swift Package Manager:
 </p>
 
 <p align="center" >
- <img src="./docs/spm-add-git-url.png" width="383" height=238">
+ <img src="./docs/spm-add-git-url.png" width="383">
 </p>
                                                               
 <p align="center">
@@ -375,7 +381,7 @@ This package can be imported into XCode using Swift Package Manager:
 </p>
 
 <p align="center" >
- <img src="./docs/spm-git-master.png" width="383" height=238">
+ <img src="./docs/spm-git-master.png" width="383">
 </p>
 
 <p align="center">
@@ -383,7 +389,7 @@ This package can be imported into XCode using Swift Package Manager:
 </p>
 
 <p align="center" >
- <img src="./docs/spm-add-target.png" width="383" height=238">
+ <img src="./docs/spm-add-target.png" width="383">
 </p>
 
 Now import the package in `AppDelegate.swift` with
@@ -422,13 +428,13 @@ Note: by default if no backend API information is passed in, it will default to 
 To test synchronization with the MBaaS, run the app and select some outcomes:
 
 <p align="center">
- <img src="./docs/sample-app-modifications.png" width="398"">
+ <img src="./docs/sample-app-modifications.png" width="250"">
 </p>
 
 Next, stop your app by clicking the square icon at the top left of XCode.
 
 <p align="center">
- <img src="./docs/sdk-stop-app.png" width="398">
+ <img src="./docs/sdk-stop-app.png" width="350">
 </p>
 
 Comment out the programmatic generation of tasks in AppDelegate.swift by commenting `store.populateSampleData()` like this:
