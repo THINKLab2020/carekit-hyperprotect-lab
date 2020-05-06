@@ -264,7 +264,7 @@ $ cat inventory.yml
 {Public_IP_Address}
 ```
 
-One final preparation step is required prior to running the setup playbook. The admin ID and corresponding password used when creating the HPDBaaS MongoDB instance was deployed need to be used to form a mongo URI. Please use the template string below, making sure the cluster name chosen during deployment is placed at the end.
+One final preparation step is required prior to running the setup playbook. The admin ID and corresponding password used when creating the HPDBaaS MongoDB instance need to be used to form a mongo URI. Please use the template string below, making sure the cluster name chosen during deployment is placed at the end.
 
     mongodb://{DBaaS_admin_ID}:{DBaaS_admin_Password}@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet={DBaas_Cluster_Name}
 
