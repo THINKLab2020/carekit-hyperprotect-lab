@@ -282,7 +282,7 @@ Now, add the admin ID and password used when creating the HPDBaaS MongoDB instan
 
 The command should look like (with your specific username, password and mongoUrl)
 
-        ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:password12345@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
+    ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:password12345@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
         
 Now run the correctly formatted command. 
 
