@@ -422,13 +422,13 @@ Note: by default if no backend API information is passed in, it will default to 
 To test synchronization with the MBaaS, run the app and select some outcomes:
 
 <p align="center">
- <img src="./docs/sdk-stop-app.png" width="398" height=266">
+ <img src="./docs/sample-app-modifications.png" width="398"">
 </p>
 
 Next, stop your app by clicking the square icon at the top left of XCode.
 
 <p align="center">
- <img src="./docs/sdk-stop-app.png" width="398" height=266">
+ <img src="./docs/sdk-stop-app.png" width="398">
 </p>
 
 Comment out the programmatic generation of tasks in AppDelegate.swift by commenting `store.populateSampleData()` like this:
