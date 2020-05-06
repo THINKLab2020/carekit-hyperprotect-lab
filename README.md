@@ -270,8 +270,6 @@ Please goto the MongoDB service you created on the IBM Cloud and then click on t
 
 Please edit the command below and replace the {mongoUrl} field with the URL you just copied.
 
-mongodb://dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster
-
     ansible-playbook hpvs_setup.yml -e "db={mongoUrl}"
     
 The command should look like (with your specific mongoUrl)
