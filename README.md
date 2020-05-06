@@ -209,8 +209,6 @@ Note: if pip3 fails, re-run the commands using just pip
 
    ```bash
    pip3 install ansible
-   ``
-
    ```
 
 2. Install docker-compose via pip3
