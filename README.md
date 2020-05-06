@@ -231,6 +231,14 @@ Note: if pip3 fails, re-run the commands using just pip
 
 3. Use the instructions below to run the Ansible playbook for bringing up the CareKit Backend SDK application. It uses the HPVS and HPDBaaS instances recently provisioned.
 
+4. You will also need a `cert.pem` file from your DBaaS instance. You can download it by clicking on the `Download the CA file` link as shown in this screenshot.
+
+ <p align="center" >
+   <img src="./docs/ca-file.png" width="700">
+ </p>
+
+This needs to be placed in the `ansible_setup` folder above.
+
 ### Bootstrapping Hyper Protect Virtual Server
 
 > Pre-requisites : IBM Hyper Protect Virtual Servers and MongoDB in IBM Hyper Protect DBaaS
