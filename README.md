@@ -22,7 +22,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
     - [Bootstrapping Hyper Protect Virtual Server](#bootstrapping-hyper-protect-virtual-server)
     - [Bootstrapping local dev environment](#bootstrapping-local-dev-environment)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-    - [Setup](#setup)
+  - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
 
 ### Useful links:
@@ -62,10 +62,10 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 4. You should see an app in the simulator:
 
 <p align="center" >
-    <img src="./docs/sample-app.png" width="220" height=450">
+    <img src="./docs/sample-app-pushups.png" width="220" height=450">
 </p>
 
-5. The first view you see are tasks that were programmatically set up using `OCKTasks`. Tasks look at the populateSampleData() in the [AppDelegate.swift file](https://github.com/THINKLab2020/CareKitHyperProtectSample/blob/b3a0c3e7bd3f1a9ccea0a15bb96e7474626c44bd/CareKitHyperProtectSample/AppDelegate.swift#L60) to see how this was done.
+1. The first view you see are tasks that were programmatically set up using `OCKTasks`. Tasks look at the populateSampleData() in the [AppDelegate.swift file](https://github.com/THINKLab2020/CareKitHyperProtectSample/blob/b3a0c3e7bd3f1a9ccea0a15bb96e7474626c44bd/CareKitHyperProtectSample/AppDelegate.swift#L60) to see how this was done.
 
 ```swift
         let thisMorning = Calendar.current.startOfDay(for: Date())
@@ -92,10 +92,10 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
    - If you do decide to create a new task, it will need a schedule. You could also re-use the original `doxylamine` tasks' `schedule` for your new task with some imaginative times.
    - If you change `id`, you'll need to change the array `identifiers` in `CareViewController.swift` too
 
-8. Push build on your new app. In our case, we changed the text to acetaminophen (Tylenol)
+8. Push build on your new app. In our case, we changed the text from pushups to "pull-ups".
 
    <p align="center" >
-   <img src="./docs/sample-app-modified.png" width="220" height=450">
+   <img src="./docs/sample-app-pull-ups.png" width="220" height=450">
    </p>
 
 <div style="page-break-after: always;"></div>
@@ -208,6 +208,8 @@ Note: if pip3 fails, re-run the commands using just pip
    pip3 install ansible
    ``
 
+   ```
+
 2. Install docker-compose via pip3
 
    ```bash
@@ -264,6 +266,7 @@ $ cat inventory.yml
 #add HPVS public IP below this comment
 {Public_IP_Address}
 ```
+
 Please goto the MongoDB service you created on the IBM Cloud and then click on the copy icon next to where it says "To connect to your database(s) with Compass, use the URL below."
 
 <<put screenshot>>
@@ -271,11 +274,11 @@ Please goto the MongoDB service you created on the IBM Cloud and then click on t
 Please edit the command below and replace the {mongoUrl} field with the URL you just copied.
 
     ansible-playbook hpvs_setup.yml -e "db={mongoUrl}"
-    
+
 The command should look like (with your specific mongoUrl)
-    
-    ansible-playbook hpvs_setup.yml -e "db=mongodb://dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
-    
+
+ansible-playbook hpvs_setup.yml -e "db=mongodb://dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
+
 Now, add the admin ID and password used when creating the HPDBaaS MongoDB instance (you will have noted it down prior - if you haven't - oops you will need to delete the MongoDB instance and create a new one!)
 
     ansible-playbook hpvs_setup.yml -e "db=mongodb://{username}:{password)@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
@@ -283,8 +286,8 @@ Now, add the admin ID and password used when creating the HPDBaaS MongoDB instan
 The command should look like (with your specific username, password and mongoUrl)
 
     ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:password12345@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
-        
-Now run the correctly formatted command. 
+
+Now run the correctly formatted command.
 
 Allow the playbook to run through it's designated tasks and configure the HPVS container.
 
