@@ -35,7 +35,7 @@
       shell: "bash ~/HyperProtectBackendSDK-test/generate_certs.sh {{ inventory_hostname }}"
       ignore_errors: true
 
-    - pause: seconds=30
+    - pause: seconds=90
 
 
     - name: Running setup via docker-compose.yml
