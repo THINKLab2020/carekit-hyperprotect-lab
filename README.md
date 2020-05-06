@@ -508,17 +508,13 @@ Resolution:
 <dict>
     <key>NSAllowsArbitraryLoads</key>
     <true/>
-    <key>NSExceptionDomains</key>
-    <dict>
-        <key>example.com</key>
-        <dict>
-            <key>NSExceptionAllowsInsecureHTTPLoads</key>
-            <true/>
-            <key>NSIncludesSubdomains</key>
-            <true/>
-        </dict>
-    </dict>
 </dict>
 ```
+
+This can also be done in the GUI:
+
+  <p align="center">
+   <img src="./docs/info-plist.png"  width="600">
+   </p>
 
 **Note, you should NEVER do this in production.**
