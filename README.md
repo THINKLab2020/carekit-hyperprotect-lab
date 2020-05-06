@@ -316,36 +316,6 @@ NOTE 2: If on the TASK [Running setup via docker-compose.yml] there is an error 
 
 <br/>
 
-In order to ensure that the Backend SDK app was created properly, use the following docker commands to check for containers currently running.
-
-```bash
-docker ps -a
-```
-
-You should see two new containers as a result, one labeled as 'hyperprotectbackendsdk', and the other container as 'mongo'.
-
-Copy the Container ID serial number for the 'hyperprotectbackendsdk' from the above output, and use the _docker logs <containerID>_ command to verify the logs. If the app is running properly from the local machine, you will see output stating that the example app is running on port 3000.
-
-```bash
-$ docker  ps -a
-CONTAINER ID        IMAGE                             COMMAND                  CREATED              STATUS              PORTS                               NAMES
-1072137b9f78        hyperprotectbackendsdk-test_app   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:3000->3000/tcp, 27017/tcp   app
-fdd1014096ce        mongo                             "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:27017->27017/tcp            mongo
-$ docker logs  1072137b9f78
-
-> hyper-protect-sdk-backend@0.0.1 start /usr/app/carekit-hyperprotect
-> set debug=* && ts-node-dev --respawn --transpileOnly ./src/index.ts
-
-Using ts-node version 8.10.1, typescript version 3.8.
-
-UUID : 7263588F-09C1-488C-9248-539060C0D124
-Example app listening on port 3000! Go to https://localhost:3000/
-```
-
-<div style="page-break-after: always;"></div>
-
-<br/>
-
 **Validation Test**
 
 To validate that the app is running properly, a simple curl command can be issued to for verification. Please make certain to change the `{HPVS_IP_or_locahost}` to either the HPVS public IP address, or _localhost_ if the local_setup was run.
