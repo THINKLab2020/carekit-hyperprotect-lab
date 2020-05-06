@@ -237,7 +237,7 @@ Note: if pip3 fails, re-run the commands using just pip
    <img src="./docs/ca-file.png" width="700">
  </p>
 
-This needs to be placed in the `ansible_setup` folder from Step 2.
+This needs to be placed in the `ansible_setup` folder from Step 2. In the rare occasion you get a `Permission Denied` error, run `chmod 644 cert.pem` to set right permissions.
 
 ### Bootstrapping Hyper Protect Virtual Server
 
