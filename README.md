@@ -318,14 +318,14 @@ NOTE 2: If on the TASK [Running setup via docker-compose.yml] there is an error 
 
 **Validation Test**
 
-To validate that the app is running properly, a simple curl command can be issued to for verification. Please make certain to change the `{HPVS_IP_or_locahost}` to either the HPVS public IP address, or _localhost_ if the local_setup was run.
+To validate that the app is running properly, a simple curl command can be issued to for verification. Please make certain to change the `{HPVS_Public_IP}` entry to the actual HPVS public address used in the earlier steps.
 
 This curl command should be executed from the local machine, while pointing the _cacert_ argument at the rootCA.crt file, as shown below.
 
 **Curl Command**
 
 ```bash
-curl --cacert rootCA.crt --location --request POST 'https://{HPVS_Public_IP)}:3000/revisionRecord' \
+curl --cacert rootCA.crt --location --request POST 'https://{HPVS_Public_IP}:3000/revisionRecord' \
 --header 'Content-Type: application/json' \
 --data-raw verification.json
 ```
