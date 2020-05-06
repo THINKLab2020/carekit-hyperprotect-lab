@@ -23,7 +23,7 @@
 
     - name: Copy 'cert.pem' file from local to Virtual Server
       copy:
-          src: {{ playbook_dir }}/cert.pem
+          src: "{{ playbook_dir }}/cert.pem"
           dest: ~/IBM-HyperProtectMBaaS/src/
 
 
