@@ -345,6 +345,7 @@ This SDK implements CareKit's Remote Synchronization API and must be coupled wit
 _Note, this is a pre-1.0 release and is still in beta_
 
 ### Setup
+https://github.com/carekit-apple/IBM-HyperProtectSDK.git
 
 This package can be imported into XCode using Swift Package Manager:
 
