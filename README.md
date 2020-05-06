@@ -369,7 +369,7 @@ This package can be imported into XCode using Swift Package Manager:
  <img src="./docs/spm-add-target.png" width="383" height=238">
 </p>
 
-Now import the package with
+Now import the package in `AppDelegate.swift` with
 
 ```swift
 import IBMHyperProtectSDK
@@ -381,7 +381,7 @@ and pass it in to your OCKStore:
 
 let remote = IBMMongoRemote()
 let store = OCKStore(name: "SampleAppStore", type:
-  inMemory, remote: remote)
+  .inMemory, remote: remote)
 ```
 
 By default if no backend API information is passed in, it will default to `https://localhost:3000` . Pass in the `apiLocation` parameter to point to your IBM Hyper Protect MBaaS deployed locally for development or in IBM Cloud.
