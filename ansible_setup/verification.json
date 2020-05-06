@@ -106,7 +106,7 @@
     ],
     "knowledgeVector": {
         "processes": [
-            { "id" : "1C43F648-D41A-4A5A-8708-15737425FA7C", "clock" : 10}
+            { "id" : "1C43F648-D41A-4A5A-8708-15737425FA7C", "clock" : 2}
         ]
     }
 }
