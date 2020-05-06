@@ -267,69 +267,65 @@ deprecation_warnings=False
 ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 ```
 
-1.  One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook.
-    _ Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
-    _ Example:
+1.  One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook. Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
+
+    Example:
     `mongodb://admin:password@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet=Cluster_Example`
 
-    - Replace 'admin' and 'password' with the proper admin ID and correlated password into the MongoDB URI string provided after provisioning the DBaaS instance.
-      <br/>
+2.  Replace 'admin' and 'password' with the proper admin ID and correlated password into the MongoDB URI string provided after provisioning the DBaaS instance.
 
-2.  Now that the Public IP address has been added as a listed host, and the location of the public SSH key was specified, it is now time to run the ansible playbook for setup. Use the following command in order to run the playbook properly. - Notice that the initial portion of the extra variable being passed to the playbook starts with _db=_. This is required to specify which variable is being passed to the ansible playbook. - Command Example:
+3.  Now that the Public IP address has been added as a listed host, and the location of the public SSH key was specified, it is now time to run the ansible playbook for setup. Use the following command in order to run the playbook properly. - Notice that the initial portion of the extra variable being passed to the playbook starts with _db=_. This is required to specify which variable is being passed to the ansible playbook. Example:
     `ansible-playbook hpvs_setup.yml -e "db=mongodb://{admin_ID}:{Mongo_Password}@DBaaS_Mongo_URI:port.../admin?replicaSet=Cluster_Example"`
-    <br/>
 
-```bash
-Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:dbaasPassword123@dbaas30.hyperp-dbaas.cloud.ibm.com:28008,dbaas29.hyperp-dbaas.cloud.ibm.com:28097,dbaas31.hyperp-dbaas.cloud.ibm.com:28191/admin?replicaSet=Cluster_1"
-```
+    ```bash
+    Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:dbaasPassword123@dbaas30.hyperp-dbaas.cloud.ibm.com:28008,dbaas29.hyperp-dbaas.cloud.ibm.com:28097,dbaas31.hyperp-dbaas.cloud.ibm.com:28191/admin?replicaSet=Cluster_1"
+    ```
 
- <br/>
- 
-1. Allow the playbook to run through it's designated tasks and configure the HPVS container.
+4.  Allow the playbook to run through it's designated tasks and configure the HPVS container.
 
-```bash
-PLAY [Configure Hyper Protect Virtual Server] **************************************************************************************************
+        ```bash
+        PLAY [Configure Hyper Protect Virtual Server] **************************************************************************************************
 
-TASK [Gathering Facts] ************************************************************\*************************************************************
-ok: [169.63.212.61]
+        TASK [Gathering Facts] ************************************************************\*************************************************************
+        ok: [169.63.212.61]
 
-TASK [Install required system packages] **************************************************\*\*\*\***************************************************
-changed: [169.63.212.61] => (item=curl)
-changed: [169.63.212.61] => (item=npm)
-changed: [169.63.212.61] => (item=docker.io)
-changed: [169.63.212.61] => (item=ufw)
-changed: [169.63.212.61] => (item=docker-compose)
-ok: [169.63.212.61] => (item=git)
+        TASK [Install required system packages] **************************************************\*\*\*\***************************************************
+        changed: [169.63.212.61] => (item=curl)
+        changed: [169.63.212.61] => (item=npm)
+        changed: [169.63.212.61] => (item=docker.io)
+        changed: [169.63.212.61] => (item=ufw)
+        changed: [169.63.212.61] => (item=docker-compose)
+        ok: [169.63.212.61] => (item=git)
 
-TASK [Clone github repo (SDK CareKit)] ****************************************************\*****************************************************
-changed: [169.63.212.61]
+        TASK [Clone github repo (SDK CareKit)] ****************************************************\*****************************************************
+        changed: [169.63.212.61]
 
-TASK [Create file on HPVS container for .env test] **********************************************\***********************************************
-changed: [169.63.212.61]
+        TASK [Create file on HPVS container for .env test] **********************************************\***********************************************
+        changed: [169.63.212.61]
 
-TASK [Copy 'cert.pem' file to the app's src/ directory] ******************************************\*\*\*\*******************************************
-changed: [169.63.212.61]
+        TASK [Copy 'cert.pem' file to the app's src/ directory] ******************************************\*\*\*\*******************************************
+        changed: [169.63.212.61]
 
-TASK [Run 'generate_certs' script for SSL certificates] ******************************************\*\*\*\*******************************************
-changed: [169.63.212.61]
+        TASK [Run 'generate_certs' script for SSL certificates] ******************************************\*\*\*\*******************************************
+        changed: [169.63.212.61]
 
-TASK [pause] ****************************************************************\*\*\*****************************************************************
-Pausing for 60 seconds
-(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
-ok: [169.63.212.61]
+        TASK [pause] ****************************************************************\*\*\*****************************************************************
+        Pausing for 60 seconds
+        (ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+        ok: [169.63.212.61]
 
-TASK [Copy rootCA.crt to local machine for validation test with curl/browser] ********************************\*\*********************************
-changed: [169.63.212.61]
+        TASK [Copy rootCA.crt to local machine for validation test with curl/browser] ********************************\*\*********************************
+        changed: [169.63.212.61]
 
-TASK [Running setup via docker-compose.yml] ************************************************\*\*\*\*************************************************
-changed: [169.63.212.61]
+        TASK [Running setup via docker-compose.yml] ************************************************\*\*\*\*************************************************
+        changed: [169.63.212.61]
 
-PLAY RECAP ******************************************************************\*******************************************************************
-169.63.212.61 : ok=9 changed=7 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
+        PLAY RECAP ******************************************************************\*******************************************************************
+        169.63.212.61 : ok=9 changed=7 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
 
-```
+        ```
 
-</p>
+    </p>
 
  <br/>
 
