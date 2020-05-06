@@ -202,7 +202,7 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 1. Install ansible via pip3 (or pip) with:
 
    ```bash
-   pip3 install ansible_
+   pip3 install ansible
    ```
 
    Please note that this command uses pip3, if you still have python2 as the default python interpreter, use `pip` in lieu of pip3
