@@ -226,7 +226,7 @@ Note: if pip3 fails, re-run the commands using just pip
 
 2. After the Github repo has been cloned to the local machine, change directories to `carekit-hyperprotect-lab/ansible_setup`.
 
-3. There are two available playbooks that can be run for bringing up the CareKit Backend SDK application. The first playbook uses the HPVS and HPDBaaS instances recently provisioned. While the second option will configure the Backend SDK app on the local machine instead. Choose the next set of instructions accordingly.
+3. Use the instructions below to run the Ansible playbook for bringing up the CareKit Backend SDK application. It uses the HPVS and HPDBaaS instances recently provisioned.
 
 ### Bootstrapping Hyper Protect Virtual Server
 
@@ -307,40 +307,12 @@ PLAY REC******************************************************************\*****
 ```
 
  <br/>
+ 
+NOTE 1: If on the TASK [Run 'generate_certs' script for SSL certificates] there is an error - this is fine, these errors are expected.
+
+NOTE 2: If on the TASK [Running setup via docker-compose.yml] there is an error - please re-run the command.
 
 **The HPVS configuration should now be complete, follow the validation test section listed below to confirm the setup worked as intended.**
-
-<br/>
-
-### Bootstrapping local dev environment
-
-> This section is only here for completeness. You will be using the services from IBM Cloud instead of localhost so you can skip this section for the lab
-
-Please note that while the local setup does _not_ require an IBM Cloud HPVS nor DBaaS instance, a few local
-
-Unlike the 'hpvs_setup.yml' playbook, the local setup already has the correct host configuration written within the playbook itself, and does not require any additional file modifications. Please use the listed command below to run the ansible script.
-
-Do note that a prompt will occur for the _BECOME_ password due to the _-K_ parameter being passed into the command. When prompted for the password, enter your local machine password, as the password is required when setting up the application.
-
-```bash
-$ ansible-playbook local_setup.yml -K
-```
-
-Allow the playbook to run and complete the predefined playbook tasks.
-
-```bash
-PLAY [Configure Hyper Protect Virtual Server**************************************************************************************************
-
-TASK [GatherinFacts*********************************************************************************************************************
-ok: [localhost
-TASK [Installing required 'pip' modules*****************************************************************************************************
-ok: [localhost]
-...
-TASK [Running setup via docker-compose.yml]***************************************************************************************************
-changed: [localhost]
-PLAY RECAP************************************************************************************************************************************
-localhost                  : ok=7    changed=5    unreachable=0    failed=0    skipped=0   rescued=0    ignored=0
-```
 
 <br/>
 
