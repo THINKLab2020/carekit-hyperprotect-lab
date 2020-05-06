@@ -16,8 +16,8 @@ May 06th 2020, 3:00 - 5:00 PM EST
 - [Deploy a Sample App with CareKit](#deploy-a-sample-app-with-carekit)
 - [Deploy a Hyper Protect Virtual Server instance](#deploy-a-hyper-protect-virtual-server-instance)
 - [Deploy a IBM Hyper Protect DBaaS for MongoDB instance](#deploy-a-ibm-hyper-protect-dbaas-for-mongodb-instance)
-  - [Test your MongoDB instances (optional)](#test-your-mongodb-instances-optional)
-  - [Connect to your Virtual Server](#connect-to-your-virtual-server)
+    - [Test your MongoDB instances (optional)](#test-your-mongodb-instances-optional)
+    - [Connect to your Virtual Server](#connect-to-your-virtual-server)
 - [Integrate IBM Hyper Protect with the Sample App](#integrate-ibm-hyper-protect-with-the-sample-app)
   - [IBM Hyper Protect MBaaS](#ibm-hyper-protect-mbaas)
   - [Prerequisites](#prerequisites)
@@ -26,7 +26,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [Bootstrapping your local dev environment](#bootstrapping-your-local-dev-environment)
   - [Validation Test](#validation-test)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-  - [Setup](#setup)
+    - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
 
 ### Useful links:
@@ -257,14 +257,13 @@ _inventory.yml:_
 
 Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server. Example:
 
-````bash
+```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
 [hosts]
 # if running locally local_setup.yml is already pointed towards 'localhost' and no change needs to be made
 #add HPVS public IP below this comment
 169.63.212.61
-
-
+```
 
 1.  One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook. Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
 
@@ -323,7 +322,6 @@ Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
         169.63.212.61 : ok=9 changed=7 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
         ```
 
-
  <br/>
 
 **The HPVS configuration should now be complete, follow the validation test section listed below to confirm the setup worked as intended.**
@@ -344,7 +342,7 @@ Please note that while the local setup does _not_ require an IBM Cloud HPVS nor 
 ```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook local_setup.yml -K
 BECOME password:
-````
+```
 
 2. Allow the playbook to run and complete the predefined tasks.
 
@@ -616,7 +614,32 @@ let store = OCKStore(name: "SampleAppStore", type:
 
 By default if no backend API information is passed in, it will default to `https://localhost:3000` . Pass in the `apiLocation` parameter to point to your IBM Hyper Protect MBaaS deployed locally for development or in IBM Cloud.
 
-> > ## TODO
+To test synchronization with the MBaaS, run the app and select some outcomes:
+![](./docs/sdk-stop-app.png)
+
+Next, stop your app but clicking the square icon at the top left of XCode.
+![](./docs/sdk-stop-app.png)
+
+Comment out the programmatic generation of tasks on line 44 of AppDelegate.swift:
+
+```swift
+    // Manages synchronization of a CoreData store
+    lazy var synchronizedStoreManager: OCKSynchronizedStoreManager = {
+        let remote = IBMMongoRemote(apiLocation: [your MBaaS location], apiTimeOut: 2.0)
+        let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
+        //store.populateSampleData() // COMMENT THIS
+        let manager = OCKSynchronizedStoreManager(wrapping: store)
+        return manager
+    }()
+```
+
+Start the app again and notice how it has no Tasks populated. Hit the Synchronize button and if everything worked according to plan, you should see a success message like:
+
+> > // TODO
+
+If you swipe down on that message, you should now see the tasks and outcomes you entered during your last run! This can be done across multiple devices and conflicts are automatically resolved!
+
+> ## **🎉 That's it ! In just two lines of code, your CareKit app has bi-directional synchronization where the data is stored in a zero-trust environment protected by industries only FIPS140-2 Level 4 compliant HSM in a public cloud! 🎉**
 
 <div style="page-break-after: always;"></div>
 
@@ -624,7 +647,7 @@ By default if no backend API information is passed in, it will default to `https
 
 There are a few potential issues that could arise while running the Ansible automation.
 
-_Failure on docker-compose task_
+**_*Failure on docker-compose task*_**
 
 Error:
 
@@ -639,7 +662,7 @@ The Hyper Protect Virtual Server has just installed the docker daemon for the fi
 
 - Wait 1-2 minutes and rerun the ansible playbook, no changes are required!
 
-**Failure on validation steps using \_rootCA.crt**
+**_Failure on validation steps using rootCA.crt_**
 
 Error:
 
@@ -651,4 +674,6 @@ Resolution:
 
 The SSL certificates were either created too quickly, causing the signing to fail, or the _rootCA.crt_ file did not copy from the Virtual Server to the local machine properly.
 
-- scp root@{Public_IP_Address}:/root/HyperProtectBackendSDK/certs/rootCA.crt {directory_for_ansible}
+```bash
+scp root@{Public_IP_Address}:/root/HyperProtectBackendSDK/certs/rootCA.crt {directory_for_ansible}
+```
