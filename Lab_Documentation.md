@@ -205,9 +205,9 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 1. Install ansible via pip3 (or pip)
 
-   - In order to run this playbook on the local machine _ansible_ is a required package.
-   - Command for installation: _pip3 install ansible_
-     - Please note that this command uses pip3, if you still have python2 as the default python interpreter, use 'pip' in lieu of pip3
+ - In order to run this playbook on the local machine _ansible_ is a required package.
+- Command for installation: _pip3 install ansible_
+   - Please note that this command uses pip3, if you still have python2 as the default python interpreter, use 'pip' in lieu of pip3
 
 2. Install docker-compose via pip3
 
@@ -222,7 +222,7 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 2. After the Github repo has been cloned to the local machine, go to the `carekit-hyperprotect-lab/ansible_setup` directory
 
-3. There are two ansible playbooks that can be run for bringing up the CareKit Backend SDK application. The first uses a HyperProtect Virtual Server, and DBaaS MongoDB instance. While the second option will configure the Backend SDK app on the local machine, uses localhost. Choose the next set of instructions accordingly.
+3. There are two ansible playbooks that can be run for bringing up the CareKit Backend SDK application. The first option uses a HyperProtect Virtual Server, and DBaaS MongoDB instance. While the second option will configure the Backend SDK app locally. 
 
 ## IBM Hyper Protect Virtual Server Bootstrapping with Ansible
 
@@ -259,15 +259,18 @@ ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 ```
    <br/>
 
-1.  One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook.
-    _ Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
-    _ Example:
-    `mongodb://admin:password@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet=Cluster_Example`
+1.  One final preparation step is required prior to running the ansible playbook. The  admin ID and password used when creating the MongoDB instance needs to be added to the mongo URI. This specific formatting is required, please use the below example as a reference. 
+    
+    Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
+    
+    Example:
+
+    ```mongodb://admin:password@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet=Cluster_Example```
 
 - Replace 'admin' and 'password' with the proper admin ID and correlated password into the MongoDB URI string provided after provisioning the DBaaS instance.
 <br/>
 
-2.  Now that the Public IP address has been added as a listed host, and the location of the public SSH key was specified, it is now time to run the ansible playbook for setup. Use the following command in order to run the playbook properly.
+1.  Now that the Public IP address has been added as a listed host, and the location of the public SSH key was specified, it is now time to run the ansible playbook for setup. Use the following command in order to run the playbook properly.
     - Notice that the initial portion of the extra variable being passed to the playbook starts with _db=_. This is required to specify which variable is being passed to the ansible playbook.
 
 Command Example:
