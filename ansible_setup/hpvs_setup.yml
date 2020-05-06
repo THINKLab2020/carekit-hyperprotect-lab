@@ -19,12 +19,12 @@
     - name: "Create file on HPVS container for .env test"
       copy:
           content: "MONGO_DB={{ db }}"
-          dest: ~/HyperProtectBackendSDK-test/.env
+          dest: ~/IBM-HyperProtectMBaaS/.env
 
     - name: Copy 'cert.pem' file from local to Virtual Server
       copy:
           src: "{{ playbook_dir }}/cert.pem"
-          dest: ~/HyperProtectBackendSDK-test/src/
+          dest: ~/IBM-HyperProtectMBaaS/src/
 
 
     - name: Running setup via docker-compose.yml
