@@ -200,15 +200,15 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 
 **Prerequisites**
 
+Note: if pip3 fails, re-run the commands using just pip
+
 1. Install ansible via pip3 (or pip) with:
 
    ```bash
    pip3 install ansible
-   ```
+   ``
 
-   Please note that this command uses pip3, if you still have python2 as the default python interpreter, use `pip` in lieu of pip3
-
-2. or install docker-compose via pip3
+2. Install docker-compose via pip3
 
    ```bash
    pip3 install docker-compose
@@ -264,11 +264,28 @@ $ cat inventory.yml
 #add HPVS public IP below this comment
 {Public_IP_Address}
 ```
+Please goto the MongoDB service you created on the IBM Cloud and then click on the copy icon next to where it says "To connect to your database(s) with Compass, use the URL below."
 
-Please edit the command below and replace the three 3 connection string variables with the admin ID and password used when creating the HPDBaaS MongoDB instance (you will have noted it down prior - if you haven't - oops you will need to delete the MongoDB instance and create a new one!), as well the cluster name (you can find it again by clicking on the MongoDB instance name in the IBM Cloud Resource List)
+<<put screenshot>>
 
-    ansible-playbook hpvs_setup.yml -e "db=mongodb://{DBaaS_admin_ID}:{DBaaS_admin_Password}@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet={DBaas_Cluster_Name}"
+Please edit the command below and replace the {mongoUrl} field with the URL you just copied.
+
+mongodb://dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster
+
+    ansible-playbook hpvs_setup.yml -e "db={mongoUrl}"
     
+The command should look like (with your specific mongoUrl)
+    
+    ansible-playbook hpvs_setup.yml -e "db=mongodb://dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
+    
+Now, add the admin ID and password used when creating the HPDBaaS MongoDB instance (you will have noted it down prior - if you haven't - oops you will need to delete the MongoDB instance and create a new one!)
+
+    ansible-playbook hpvs_setup.yml -e "db=mongodb://{username}:{password)@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
+
+The command should look like (with your specific username, password and mongoUrl)
+
+        ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:password12345@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
+        
 Now run the correctly formatted command. 
 
 Allow the playbook to run through it's designated tasks and configure the HPVS container.
