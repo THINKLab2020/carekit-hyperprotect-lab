@@ -21,7 +21,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [Bootstrapping with Ansible](#bootstrapping-with-ansible)
     - [Bootstrapping Hyper Protect Virtual Server](#bootstrapping-hyper-protect-virtual-server)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-  - [Setup](#setup)
+    - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
 
 ### Useful links:
@@ -359,7 +359,7 @@ This package can be imported into XCode using Swift Package Manager:
 </p>
                                                               
 <p align="center">
-  Go to File -> Swift Packages -> Add Package Dependency
+  Go to File → Swift Packages → Add Package Dependency
 </p>
 
 <p align="center" >
