@@ -116,7 +116,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
    - In order to view the full list of Cloud offerings, ensure that the 'Services' tab is selected on the left-hand side of the catalog
    <p align="center"> 
        <img src="./docs/create-resource.png" width="250" height=100">
-   </p>                                                 
+   </p>
 
 3. Within the catalog listings, locate and click on 'Hyper Protect Virtual Servers'.
 
@@ -458,11 +458,13 @@ let store = OCKStore(name: "SampleAppStore", type:
 By default if no backend API information is passed in, it will default to `https://localhost:3000` . Pass in the `apiLocation` parameter to point to your IBM Hyper Protect MBaaS deployed locally for development or in IBM Cloud.
 
 To test synchronization with the MBaaS, run the app and select some outcomes:
+
 <p align="center">
  <img src="./docs/sdk-stop-app.png" width="398" height=266">
 </p>
 
 Next, stop your app but clicking the square icon at the top left of XCode.
+
 <p align="center">
  <img src="./docs/sdk-stop-app.png" width="398" height=266">
 </p>
@@ -483,7 +485,7 @@ Comment out the programmatic generation of tasks on line 44 of AppDelegate.swift
 Start the app again and notice how it has no Tasks populated. Hit the Synchronize button and if everything worked according to plan, you should see a success message like:
 
    <p align="center">
-   <img src="./docs/sample-app-success.png" style="width: 200px; height: 50%;">
+   <img src="./docs/sample-app-success.png" width="220" height="450">
    </p>
 
 If you swipe down on that message, you should now see the tasks and outcomes you entered during your last run! This can be done across multiple devices and conflicts are automatically resolved!
@@ -532,7 +534,7 @@ scp root@{Public_IP_Address}:/root/HyperProtectBackendSDK/certs/rootCA.crt {dire
 Error:
 
    <p align="center">
-   <img src="./docs/sample-app-https-error.png" style="width: 200px; height: 50%;">
+   <img src="./docs/sample-app-https-error.png"  width="220" height="450">
    </p>
 
 Resolution:
