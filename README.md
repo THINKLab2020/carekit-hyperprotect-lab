@@ -145,7 +145,8 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 4. The non-essential fields will be left to the default values:
    - Create and add a 'Cluster Name' for the database. e.g. My_Mongo_Cluster
    - Choose an admin ID name for the MongoDB service, this ID will have full administrative access to the database e.g Example: admin
-   - Generate a password for the associated database admin user (the Safari Keychain can do this for you)
+   - Generate a password for the associated database admin user
+   - PLEASE TAKE NOTE OF USERNAME AND PASSWORD YOU WILL NEEED THEM LATER.
 
 > Password requirements: 15 characters minimum, must include 1 capital letter, and 1 number, The use of non-alphanumeric symbols is not required but is recommended
 
@@ -264,17 +265,9 @@ $ cat inventory.yml
 {Public_IP_Address}
 ```
 
-One final preparation step is required prior to running the setup playbook. The admin ID and corresponding password used when creating the HPDBaaS MongoDB instance need to be used to form a mongo URI. Please use the template string below, making sure the cluster name chosen during deployment is placed at the end.
+Please edit the command below and replace the three 3 connection string variables with the admin ID and password used when creating the HPDBaaS MongoDB instance (you will have noted it down prior - if you haven't - oops you will need to delete the MongoDB instance and create a new one!), as well the cluster name (you can find it again by clicking on the MongoDB instance name in the IBM Cloud Resource List)
 
-    mongodb://{DBaaS_admin_ID}:{DBaaS_admin_Password}@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet={DBaas_Cluster_Name}
-
-Replace 'admin' and 'password' with the proper admin ID and correlated password into the MongoDB URI string provided after provisioning the DBaaS instance.
-
-Now that the Public IP address has been added as a listed host in inventory.yml, and the public ssh key information was specified, it is now time to run the setup via ansible playbook.
-
-Use the following command in order to run the playbook properly. Notice that the initial portion of the extra variable being passed to the playbook starts with _db=_. The 'db' variable name is required when running the playbook to specify which variable is being passed through the command line.
-
-    ansible-playbook hpvs_setup.yml -e "db=mongodb://{admin_ID}:{Mongo_Password}@DBaaS_Mongo_URI:port.../admin?replicaSet=Cluster_Example"
+    ansible-playbook hpvs_setup.yml -e "db=mongodb://{DBaaS_admin_ID}:{DBaaS_admin_Password}@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet={DBaas_Cluster_Name}"
 
 ```bash
 $ ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:dbaasPassword123@dbaas30.hyperp-dbaas.cloud.ibm.com:28008,dbaas29.hyperp-dbaas.cloud.ibm.com:28097,dbaas31.hyperp-dbaas.cloud.ibm.com:28191/admin?replicaSet=Cluster_1"
