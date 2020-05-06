@@ -501,7 +501,9 @@ Error:
 
 Resolution:
 
-444 stands for Connection Closed Without Response. This typically means your app couldn't connect to your MBaaS backend. It could also mean you are trying to make a HTTP connection instead of a HTTPS connection. You could add this to Info.plist
+444 stands for Connection Closed Without Response. This typically means your app couldn't connect to your MBaaS backend so look at the error message in XCode console (it'll have NSURLError...) in it, and ensure the URL is correct.
+
+It could also mean you are trying to make a HTTP connection instead of a HTTPS connection and you could add this to Info.plist. **Note, you should NEVER do this in production.**
 
 ```xml
 <key>NSAppTransportSecurity</key>
@@ -511,10 +513,8 @@ Resolution:
 </dict>
 ```
 
-This can also be done in the GUI:
+This can also be done in the GUI, where you add a Row for `NSAppTransportSecurity` and then add a sub-property `NSAllowsArbitraryLoads` that you can set to `YES`.
 
   <p align="center">
    <img src="./docs/info-plist.png"  width="600">
    </p>
-
-**Note, you should NEVER do this in production.**
