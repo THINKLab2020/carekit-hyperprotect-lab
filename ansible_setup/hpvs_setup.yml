@@ -41,7 +41,7 @@
     - pause: seconds=20
 
     - name:
-      shell: "bash ~/HyperProtectBackendSDK-test/copy_cert.sh"
+      shell: "bash ~/IBM-HyperProtectMBaaS/copy_cert.sh"
 
     - name: Copy rootCA.crt to local machine for validation test with curl/browser
       fetch:
