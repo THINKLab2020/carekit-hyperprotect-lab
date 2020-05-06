@@ -325,7 +325,7 @@ This curl command should be executed from the local machine, while pointing the 
 **Curl Command**
 
 ```bash
-curl --cacert rootCA.crt --location --request POST 'https://{HPVS_IP_or_locahost}:3000/revisionRecord' \
+curl --cacert rootCA.crt --location --request POST 'https://{HPVS_Public_IP)}:3000/revisionRecord' \
 --header 'Content-Type: application/json' \
 --data-raw verification.json
 ```
