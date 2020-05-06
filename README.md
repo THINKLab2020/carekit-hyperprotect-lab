@@ -225,7 +225,7 @@ Note: if pip3 fails, re-run the commands using just pip
 
 ## Bootstrapping with Ansible
 
-1. Clone the carekit-hyperprotect-lab repository on the local machine using `git clone https://github.com/e-desouza/carekit-hyperprotect-lab.git` This github repository containing the ansible playbooks has been made public for accessibility.
+1. Clone the carekit-hyperprotect-lab repository on the local machine using `[git clone https://github.com/e-desouza/carekit-hyperprotect-lab.git](https://github.com/THINKLab2020/carekit-hyperprotect-lab.git)` This github repository containing the ansible playbooks has been made public for accessibility.
 
 2. After the Github repo has been cloned to the local machine, change directories to `carekit-hyperprotect-lab/ansible_setup`.
 
@@ -312,8 +312,6 @@ PLAY REC******************************************************************\*****
 
  <br/>
  
-NOTE 1: If on the TASK [Run 'generate_certs' script for SSL certificates] there is an error - this is fine, these errors are expected.
-
 NOTE 2: If on the TASK [Running setup via docker-compose.yml] there is an error - please re-run the command.
 
 **The HPVS configuration should now be complete, follow the validation test section listed below to confirm the setup worked as intended.**
