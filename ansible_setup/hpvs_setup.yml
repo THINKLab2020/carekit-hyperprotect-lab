@@ -13,8 +13,8 @@
 
     - name: Clone github repo (SDK CareKit)
       git:
-          repo: https://github.com/Ry-is-me/HyperProtectBackendSDK-test.git
-          dest: ~/HyperProtectBackendSDK-test
+          repo: https://github.com/carekit-apple/IBM-HyperProtectMBaaS.git
+          dest: ~/IBM-HyperProtectMBaaS
 
     - name: "Create file on HPVS container for .env test"
       copy:
@@ -27,25 +27,6 @@
           dest: ~/HyperProtectBackendSDK-test/src/
 
 
-    - name: Run 'generate_certs' script for SSL certificates
-      shell: "bash ~/HyperProtectBackendSDK-test/generate_certs.sh {{ inventory_hostname }}"
-      ignore_errors: true
-
-    - pause: seconds=90
-
-
     - name: Running setup via docker-compose.yml
       docker_compose:
-          project_src: /root/HyperProtectBackendSDK-test
-
-    - pause: seconds=20
-
-    - name:
-      shell: "bash ~/HyperProtectBackendSDK-test/copy_cert.sh"
-
-    - name: Copy rootCA.crt to local machine for validation test with curl/browser
-      fetch:
-        src: /root/rootCA.crt
-        dest: "{{ playbook_dir }}/"
-        mode: 0774
-        flat: yes
+          project_src: /root/IBM-HyperProtectMBaaS
