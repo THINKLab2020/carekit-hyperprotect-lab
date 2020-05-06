@@ -21,7 +21,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [Bootstrapping with Ansible](#bootstrapping-with-ansible)
     - [Bootstrapping Hyper Protect Virtual Server](#bootstrapping-hyper-protect-virtual-server)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-    - [Setup](#setup)
+  - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
 
 ### Useful links:
@@ -331,7 +331,7 @@ This curl command should be executed from the local machine, while pointing the 
 **Curl Command**
 
 ```bash
-curl --cacert rootCA.crt --location --request POST 'https://{HPVS_Public_IP}:3000/revisionRecord' \
+curl --cacert rootCA.crt --location --request POST 'http://{HPVS_Public_IP}:3000/revisionRecord' \
 --header 'Content-Type: application/json' \
 --data @verification.json
 ```
@@ -399,7 +399,7 @@ with this
 
 ```swift
 
-let remote = IBMMongoRemote(apiLocation: “https://{HPVS_Public_IP}:3000“, apiTimeOut: 2.0)
+let remote = IBMMongoRemote(apiLocation: "http://{HPVS_Public_IP}:3000", apiTimeOut: 2.0)
 let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
 
 ```
@@ -408,12 +408,12 @@ and finally make sure to replace {HPVS_Public_IP} with your server IP address e.
 
 ```swift
 
-let remote = IBMMongoRemote(apiLocation: “https://169.63.212.34:3000“, apiTimeOut: 2.0)
+let remote = IBMMongoRemote(apiLocation: "http://169.63.212.34:3000", apiTimeOut: 2.0)
 let store = OCKStore(name: "SampleAppStore", type: .inMemory, remote: remote)
 
 ```
 
-Note: by default if no backend API information is passed in, it will default to `https://localhost:3000` .
+Note: by default if no backend API information is passed in, it will default to `http://localhost:3000` .
 
 To test synchronization with the MBaaS, run the app and select some outcomes:
 
