@@ -13,7 +13,7 @@
 
     - name: Clone github repo (SDK CareKit)
       git:
-          repo: https://github.com/Ry-is-me/HyperProtectBackendSDK-test.git
+          repo: https://github.com/carekit-apple/IBM-HyperProtectMBaaS.git
           dest: ~/IBM-HyperProtectMBaaS
 
     - name: "Create file on HPVS container for .env test"
