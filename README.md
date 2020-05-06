@@ -208,18 +208,18 @@ Note: if pip3 fails, re-run the commands using just pip
 1. Install ansible via pip3 (or pip) with:
 
    ```bash
-   pip3 install ansible
+   pip3 install ansible --user
    ```
 
 2. Install docker-compose via pip3
 
    ```bash
-   pip3 install docker-compose
+   pip3 install docker-compose --user
    ```
 
 3. Install docker
    ```bash
-   pip3 install docker
+   pip3 install docker --user
    ```
    <br/>
 
