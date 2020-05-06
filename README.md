@@ -55,14 +55,14 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 1. First `git clone https://github.com/THINKLab2020/CareKitHyperProtectSample.git`
 2. Click on 'CareKitHyperProtectSample.xcodeproj' to open up the project in XCode. Once the dependencies are downloaded, you should see this:
 <p align="center" >
- <img src="./docs/xcode-carekit.png" style="width: 70%; height: 70%;">
+ <img src="./docs/xcode-carekit.png" width="450" height="250">
 </p>
 
 3. Hit Run to build the sample app. The first run might take a while since it's building everything from source, but subsequent runs will be much quicker.
 4. You should see an app in the simulator:
 
 <p align="center" >
-    <img src="./docs/sample-app.png" style="width: 200px; height: 50%;">
+    <img src="./docs/sample-app.png" width="220" height=450">
 </p>
 
 5. The first view you see are tasks that were programmatically set up using `OCKTasks`. Tasks look at the populateSampleData() in the [AppDelegate.swift file](https://github.com/THINKLab2020/CareKitHyperProtectSample/blob/b3a0c3e7bd3f1a9ccea0a15bb96e7474626c44bd/CareKitHyperProtectSample/AppDelegate.swift#L60) to see how this was done.
@@ -95,7 +95,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 8. Push build on your new app. In our case, we changed the text to acetaminophen (Tylenol)
 
    <p align="center" >
-   <img src="./docs/sample-app-modified.png" style="width: 200px; height: 50%;">
+   <img src="./docs/sample-app-modified.png" width="220" height=450">
    </p>
 
 <div style="page-break-after: always;"></div>
@@ -114,7 +114,9 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 
    - The desired destination is the Cloud catalog, where all current available Cloud offerings are listed
    - In order to view the full list of Cloud offerings, ensure that the 'Services' tab is selected on the left-hand side of the catalog
-   <p align="center" > <img src="./docs/create-resource.png" style="width: 40%; height: 20%;"></p>
+   <p align="center"> 
+       <img src="./docs/create-resource.png" width="250" height=100">
+   </p>                                                 
 
 3. Within the catalog listings, locate and click on 'Hyper Protect Virtual Servers'.
 
@@ -423,19 +425,19 @@ _Note, this is a pre-1.0 release and is still in beta_
 This package can be imported into XCode using Swift Package Manager:
 
 <p align="center" >
- <img src="./docs/spm-add-package.png" style="width: 60%; height: 70%;">>
+ <img src="./docs/spm-add-package.png" width="290" height=230">>
 </p>
 
 <p align="center" >
- <img src="./docs/spm-add-git-url.png">
+ <img src="./docs/spm-add-git-url.png" width="383" height=238">
 </p>
 
 <p align="center" >
- <img src="./docs/spm-git-master.png">
+ <img src="./docs/spm-git-master.png" width="383" height=238">
 </p>
 
 <p align="center" >
- <img src="./docs/spm-add-target.png">
+ <img src="./docs/spm-add-target.png" width="383" height=238">
 </p>
 
 Now import the package with
@@ -456,10 +458,14 @@ let store = OCKStore(name: "SampleAppStore", type:
 By default if no backend API information is passed in, it will default to `https://localhost:3000` . Pass in the `apiLocation` parameter to point to your IBM Hyper Protect MBaaS deployed locally for development or in IBM Cloud.
 
 To test synchronization with the MBaaS, run the app and select some outcomes:
-![](./docs/sdk-stop-app.png)
+<p align="center">
+ <img src="./docs/sdk-stop-app.png" width="398" height=266">
+</p>
 
 Next, stop your app but clicking the square icon at the top left of XCode.
-![](./docs/sdk-stop-app.png)
+<p align="center">
+ <img src="./docs/sdk-stop-app.png" width="398" height=266">
+</p>
 
 Comment out the programmatic generation of tasks on line 44 of AppDelegate.swift:
 
