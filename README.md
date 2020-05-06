@@ -334,30 +334,6 @@ After the curl command has been issued, if successful you will see a `RevisionRe
 
 <br/>
 
-Another verification check is to check the Docker container logs on the Virtual Server, or localhost. The docker logs can be checked as such:
-
-1. Check docker for running containers
-
-   ```bash
-    docker ps -a
-   ```
-
-2. Locate the Docker container ID
-
-   ```bash
-   root@b4e8f18c497b:~# docker ps -a
-   CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS
-   c876afbe4704        hyperprotectbackendsdktest_app   "docker-entrypoint.s…"   2 hours ago         Up 2 hours
-   ```
-
-3. Use container ID from previous step to check current log entries
-
-   ```bash
-   docker logs {Container_ID}
-   ```
-
-4. View the hyperprotectbackendsdk Docker logs, traces of the curl command should be present.
-
 > #### You now have the IBM Hyper Protect MBaaS running in IBM Hyper Protect Virtual Servers
 
 <div style="page-break-after: always;"></div>
