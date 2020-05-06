@@ -16,8 +16,8 @@ May 06th 2020, 3:00 - 5:00 PM EST
 - [Deploy a Sample App with CareKit](#deploy-a-sample-app-with-carekit)
 - [Deploy a Hyper Protect Virtual Server instance](#deploy-a-hyper-protect-virtual-server-instance)
 - [Deploy a IBM Hyper Protect DBaaS for MongoDB instance](#deploy-a-ibm-hyper-protect-dbaas-for-mongodb-instance)
-    - [Test your MongoDB instances (optional)](#test-your-mongodb-instances-optional)
-    - [Connect to your Virtual Server](#connect-to-your-virtual-server)
+  - [Test your MongoDB instances (optional)](#test-your-mongodb-instances-optional)
+  - [Connect to your Virtual Server](#connect-to-your-virtual-server)
 - [Integrate IBM Hyper Protect with the Sample App](#integrate-ibm-hyper-protect-with-the-sample-app)
   - [IBM Hyper Protect MBaaS](#ibm-hyper-protect-mbaas)
   - [Prerequisites](#prerequisites)
@@ -26,7 +26,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
   - [Bootstrapping your local dev environment](#bootstrapping-your-local-dev-environment)
   - [Validation Test](#validation-test)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-    - [Setup](#setup)
+  - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
 
 ### Useful links:
@@ -166,11 +166,9 @@ After all required fields have been properly filled out, click the create button
 
 Now that both required Cloud services have been deployed, it is time to access the newly provisioned virtual server using ssh protocol
 
-- To obtain the public IP address of the virtual server, navigate to the Cloud dashboard homepage, and click on 'Services' in the Resource Summary box. Once the deployed services are listed, locate the Hyper Protect virtual server instance and click on the name. The public IP address will be displayed on the following screen.
-
-  - After finding the public IP address, access a terminal and leverage the ssh protocol to navigate to the virtual server.
-    _ Example ssh command: ssh root@{public_IP}
-    _ The ID required for a successful ssh connection must be 'root'
+1. To obtain the public IP address of the virtual server, navigate to the Cloud dashboard homepage, and click on 'Services' in the Resource Summary box. Once the deployed services are listed, locate the Hyper Protect virtual server instance and click on the name. The public IP address will be displayed on the following screen.
+2. After finding the public IP address, access a terminal and leverage the ssh protocol to navigate to the virtual server.
+   Example ssh command: `ssh root@{public_IP}`. The ID required for a successful ssh connection must be 'root'
 
 ---
 
@@ -208,7 +206,7 @@ _Goal_: At the end of this next section, the recently provisioned Hyper Protect 
 1. Install ansible via pip3 (or pip) with:
 
    ```bash
-   pip3 install docker-compose
+   pip3 install ansible_
    ```
 
    Please note that this command uses pip3, if you still have python2 as the default python interpreter, use 'pip' in lieu of pip3
@@ -245,18 +243,6 @@ Within the ansible.cfg file, the value for environmental variable `ansible_ssh_p
 Example: ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 
 ```bash
-Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
-[hosts]
-# if running locally local_setup.yml is already pointed towards 'localhost' and no change needs to be made
-#add HPVS public IP below this comment
-169.63.212.61
-```
-
-_inventory.yml:_
-
-Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server. Example:
-
-```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat ansible.cfg
 [defaults]
 inventory = inventory.yml
@@ -266,6 +252,19 @@ deprecation_warnings=False
 #add public ssh key directory and filename as private_key_file value
 ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 ```
+
+_inventory.yml:_
+
+Underneath the commented line, add the public IP address of the Hyper Protect Virtual Server. Example:
+
+````bash
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
+[hosts]
+# if running locally local_setup.yml is already pointed towards 'localhost' and no change needs to be made
+#add HPVS public IP below this comment
+169.63.212.61
+
+
 
 1.  One final preparation step is required prior to running the ansible playbook. The DBaaS MongoDB admin ID and password needs to be added to the mongo URI, as this value will be passed into the command line when invoking the playbook. Ensure that the entire string including all 3 replica hosts are in the uri string, and also the Cluster name at the end.
 
@@ -322,10 +321,8 @@ ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 
         PLAY RECAP ******************************************************************\*******************************************************************
         169.63.212.61 : ok=9 changed=7 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
-
         ```
 
-    </p>
 
  <br/>
 
@@ -339,7 +336,7 @@ ansible_ssh_private_key_file = "~/.ssh/id_rsa.pub"
 
 Please note that while the local setup does _not_ require an IBM Cloud HPVS nor DBaaS instance, a few local
 
-1. Unlike the 'hpvs*setup.yml' playbook, the local setup already has the correct \_locahost* configurations written within the playbook itself, and does not require any other changes to the inventory file, nor ansible.cfg. Please use the listed command below to run the ansible script.
+1. Unlike the 'hpvs_setup.yml' playbook, the local setup already has the correct a predefined host configuration written within the playbook itself, and does not require any modifications. Please use the listed command below to run the ansible script.
 
 - Command: _ansible-playbook local_setup.yml -K_
   - The _-K_ argument is required due to the playbook utilizing the "Become" parameter. Enter the local machine password (user profile credentials) when prompted.
@@ -347,9 +344,7 @@ Please note that while the local setup does _not_ require an IBM Cloud HPVS nor 
 ```bash
 Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ ansible-playbook local_setup.yml -K
 BECOME password:
-```
-
-<br/>
+````
 
 2. Allow the playbook to run and complete the predefined tasks.
 
@@ -550,7 +545,7 @@ After the curl command has been issued, if successful you will see a `RevisionRe
 
 <br/>
 
-Another verification che ck is to check the Docker container logs on the Virtual Server, or localhost. The docker logs can be checked as such:
+Another verification check is to check the Docker container logs on the Virtual Server, or localhost. The docker logs can be checked as such:
 
 1. Check docker for running containers
 
