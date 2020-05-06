@@ -98,8 +98,8 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 
 8. Push build on your new app. In our case, we changed the text to acetaminophen (Tylenol)
 
-   <p align="center" >
-   <img src="./docs/sample-app-modified.png" style="width: 200px; height: 50%;>
+   <p align="center">
+   <img src="./docs/sample-app-modified.png" style="width: 200px; height: 50%">
    </p>
 
 <div style="page-break-after: always;"></div>
@@ -118,7 +118,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
 
    - The desired destination is the Cloud catalog, where all current available Cloud offerings are listed
    - In order to view the full list of Cloud offerings, ensure that the 'Services' tab is selected on the left-hand side of the catalog
-   <p align="center" > <img src="./docs/create-resource.png" style="width: 20%; height: 20%;"></p>
+   <p align="center" > <img src="./docs/create-resource.png" style="width: 40%;"></p>
 
 3. Within the catalog listings, locate and click on 'Hyper Protect Virtual Servers'.
 
@@ -128,6 +128,8 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
    - Add any necessary tags for labeling the virtual server
      - Copy and paste your public ssh key (`cat ~/.ssh/id_rsa.pub` locally) into the last field. This is a required step as the Virtual server is only accessible via ssh key. If you do not know how/where to find your ssh key, please follow [these](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) instructions.
      - After all required fields have been properly filled out, click the create button on the bottom right hand side of this page to begin provisioning of the Hyper Protect Virtual Server instance
+
+</br>
 
 > As this will take some time, we will deploy a MongoDB instance in IBM Hyper Protect and then test the connection to this virtual server once that's complete.
 
