@@ -22,7 +22,7 @@ May 06th 2020, 3:00 - 5:00 PM EST
     - [Bootstrapping Hyper Protect Virtual Server](#bootstrapping-hyper-protect-virtual-server)
     - [Bootstrapping local dev environment](#bootstrapping-local-dev-environment)
 - [Integrate IBM Hyper Protect SDK for iOS into the Sample App](#integrate-ibm-hyper-protect-sdk-for-ios-into-the-sample-app)
-  - [Setup](#setup)
+    - [Setup](#setup)
 - [Troubleshooting](#troubleshooting)
 
 ### Useful links:
@@ -476,7 +476,9 @@ Comment out the programmatic generation of tasks on line 44 of AppDelegate.swift
 
 Start the app again and notice how it has no Tasks populated. Hit the Synchronize button and if everything worked according to plan, you should see a success message like:
 
-> > // TODO
+   <p align="center">
+   <img src="./docs/sample-app-success.png" style="width: 200px; height: 50%;">
+   </p>
 
 If you swipe down on that message, you should now see the tasks and outcomes you entered during your last run! This can be done across multiple devices and conflicts are automatically resolved!
 
@@ -518,3 +520,35 @@ The SSL certificates were either created too quickly, causing the signing to fai
 ```bash
 scp root@{Public_IP_Address}:/root/HyperProtectBackendSDK/certs/rootCA.crt {directory_for_ansible}
 ```
+
+**_IBMHyperProtectSDK.HTTPStatusCodeError 444_**
+
+Error:
+
+   <p align="center">
+   <img src="./docs/sample-app-https-error.png" style="width: 200px; height: 50%;">
+   </p>
+
+Resolution:
+
+444 stands for Connection Closed Without Response. This typically means your app couldn't connect to your MBaaS backend. It could also mean you are trying to make a HTTP connection instead of a HTTPS connection. You could add this to Info.plist
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>example.com</key>
+        <dict>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+```
+
+**Note, you should NEVER do this in production.**
