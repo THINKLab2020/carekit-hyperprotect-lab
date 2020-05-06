@@ -281,7 +281,7 @@ Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
 
 4.  Allow the playbook to run through it's designated tasks and configure the HPVS container.
 
-        ```bash
+```bash
         PLAY [Configure Hyper Protect Virtual Server] **************************************************************************************************
 
         TASK [Gathering Facts] ************************************************************\*************************************************************
@@ -320,7 +320,7 @@ Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat inventory.yml
 
         PLAY RECAP ******************************************************************\*******************************************************************
         169.63.212.61 : ok=9 changed=7 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
-        ```
+```
 
  <br/>
 
