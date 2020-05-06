@@ -361,6 +361,10 @@ This package can be imported into XCode using Swift Package Manager:
  <img src="./docs/spm-git-master.png" width="383" height=238">
 </p>
 
+<p align="center">
+  Make sure to change the branch to master
+</p>
+
 <p align="center" >
  <img src="./docs/spm-add-target.png" width="383" height=238">
 </p>
