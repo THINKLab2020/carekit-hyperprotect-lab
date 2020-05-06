@@ -114,7 +114,7 @@ An IBM Cloud Account is required for this lab. If you need to create one, please
    - The desired destination is the Cloud catalog, where all current available Cloud offerings are listed
    - In order to view the full list of Cloud offerings, ensure that the 'Services' tab is selected on the left-hand side of the catalog
    <p align="center"> 
-       <img src="./docs/create-resource.png" width="250" height=100">
+       <img src="./docs/create-resource.png" width="250">
    </p>
 
 3. Within the catalog listings, locate and click on 'Hyper Protect Virtual Servers'.
