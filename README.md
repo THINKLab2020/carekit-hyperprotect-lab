@@ -268,10 +268,8 @@ $ cat inventory.yml
 Please edit the command below and replace the three 3 connection string variables with the admin ID and password used when creating the HPDBaaS MongoDB instance (you will have noted it down prior - if you haven't - oops you will need to delete the MongoDB instance and create a new one!), as well the cluster name (you can find it again by clicking on the MongoDB instance name in the IBM Cloud Resource List)
 
     ansible-playbook hpvs_setup.yml -e "db=mongodb://{DBaaS_admin_ID}:{DBaaS_admin_Password}@dbaas30.hyperp-dbaas.cloud.ibm.com:28162,dbaas29.hyperp-dbaas.cloud.ibm.com:28130,dbaas31.hyperp-dbaas.cloud.ibm.com:28222/admin?replicaSet={DBaas_Cluster_Name}"
-
-```bash
-$ ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:dbaasPassword123@dbaas30.hyperp-dbaas.cloud.ibm.com:28008,dbaas29.hyperp-dbaas.cloud.ibm.com:28097,dbaas31.hyperp-dbaas.cloud.ibm.com:28191/admin?replicaSet=Cluster_1"
-```
+    
+Now run the correctly formatted command. 
 
 Allow the playbook to run through it's designated tasks and configure the HPVS container.
 
