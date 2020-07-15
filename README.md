@@ -297,7 +297,7 @@ In the connection string after the **mongodb://** portion, please add the userID
 Following the formatting of the connection string, the _db_ variable is ready to be set within the `vars.yml` file. Edit `vars.yml` and paste the DBaaS connection string as portrayed below. Make certain that the admin ID and password were formatted into the connection string properly!
 
 ```bash
-Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat vars.yml 
+$ cat vars.yml 
 ---
 # Repo name - change value as needed (MBaaS is default)
 
