@@ -243,7 +243,7 @@ This needs to be placed in the `ansible_setup` folder from Step 2. In the rare o
 
 > Pre-requisites : IBM Hyper Protect Virtual Servers and MongoDB in IBM Hyper Protect DBaaS
 
-Two critical modifications need to be made to the playbook files in order to successfully run the hpvs_setup.yml playbook.
+Three critical modifications need to be made to the playbook files in order to successfully run the hpvs_setup.yml playbook.
 
 The first change is within the ansible.cfg file. Alter the value for environmental variable `ansible_ssh_private_key_file` with the location and name of your public ssh key. This particular ssh key **must** be the same key used when deploying the Hyper Protect Virtual Server, as illustrated in a previous section.
 
@@ -282,27 +282,32 @@ You can get your public IP by looking at the:
  <img src="./docs/hpvs-dashboard-ip.png" width="900">
 </p>
 
+Lastly, the `vars.yml` file needs to be altered, and the _db_ variable within `vars.yml` must have it's value set as the HPDBaaS connection string. Prior to modifying the `vars.yml` file, we must first acquire the MongoDB connection string. See below for further instructions on obtaining the necessary information. 
+
 Please goto the MongoDB service you created on the IBM Cloud and then click on the copy icon next to where it says "To connect to your database(s) with Compass, use the URL below."
 
 <<put screenshot>>
 
-Please edit the command below and replace the {mongoUrl} field with the URL you just copied.
+After the connection string has been obtained, the database admin ID and associated password need to be added to the URI in order to authenticate (you will have noted it down prior - if you haven't - you will need to delete the MongoDB instance and create a new one!). 
 
-    ansible-playbook hpvs_setup.yml -e "db={mongoUrl}"
+In the connection string after the **mongodb://** portion, please add the userID and password as depicted below. The format _must_ be: `{adminID}:{Password}@`. Notice that there is a colon separating the admin ID and password, followed by an **@** symbol before the start of the first DBaaS replica. 
 
-The command should look like (with your specific mongoUrl)
+    mongodb://{adminID}:{Password}@dbaas31.hyperp-dbaas.cloud.ibm.com:XXXX,dbaas29.hyperp-dbaas.cloud.ibm.com:YYYY,dbaas30.hyperp-dbaas.cloud.ibm.com:ZZZZ/admin?replicaSet=test_cluster
 
-ansible-playbook hpvs_setup.yml -e "db=mongodb://dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
+Following the formatting of the connection string, the _db_ variable is ready to be set within the `vars.yml` file. Edit `vars.yml` and paste the DBaaS connection string as portrayed below. Make certain that the admin ID and password were formatted into the connection string properly!
 
-Now, add the admin ID and password used when creating the HPDBaaS MongoDB instance (you will have noted it down prior - if you haven't - oops you will need to delete the MongoDB instance and create a new one!)
+```bash
+Ryleys-MacBook-Pro:ansible_setup ryley.wharton1ibm.com$ cat vars.yml 
+---
+# Repo name - change value as needed (MBaaS is default)
 
-    ansible-playbook hpvs_setup.yml -e "db=mongodb://{username}:{password)@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
+repo_name: IBM-HyperProtectMBaaS
+db: mongodb://admin:Password123@dbaas30.hyperp-dbaas.cloud.ibm.com:28008,dbaas29.hyperp-dbaas.cloud.ibm.com:28097,dbaas31.hyperp-dbaas.cloud.ibm.com:28191/admin?replicaSet=Cluster_1
+```
 
-The command should look like (with your specific username, password and mongoUrl)
+Now we are ready to run setup playbook! Run the command below to start the setup.
 
-    ansible-playbook hpvs_setup.yml -e "db=mongodb://admin:password12345@dbaas31.hyperp-dbaas.cloud.ibm.com:28128,dbaas29.hyperp-dbaas.cloud.ibm.com:28239,dbaas30.hyperp-dbaas.cloud.ibm.com:28219/admin?replicaSet=mal_cluster"
-
-Now run the correctly formatted command.
+    ansible-playbook hpvs_setup.yml
 
 Allow the playbook to run through it's designated tasks and configure the HPVS container.
 
