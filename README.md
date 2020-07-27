@@ -367,7 +367,43 @@ _Note, this is a pre-1.0 release and is still in beta_
 
 ### Setup
 
-This package can be imported into XCode using Swift Package Manager:
+First, we will need to add the `carekit-root.der` certificate to xcode in order to complete the SSL authentication challenge. The ansible playbook copied the required certificate to the local CareKit lab directory during the bootstrapping Hyper Protect Virtual Server phase. However, we still need to move `carekit-root.der` to the _CareKitHyperProtectSample_ local directory, specifically within the project folder. 
+
+**Note:** The _CareKitHyperProtectSample_ directory being referenced is the repo that was cloned during the 'Deploy a Sample App with CareKit' portion of the lab.
+
+Navigate to the _CareKitHyperProtectSample_ directory, right click on `CareKitHyperProtectSample.xcodeproj`, and select **Show Package Contents**. 
+
+ <p align="center" >
+   <img src="./docs/ShowPackageContents.png" width="350" height="250">
+ </p>
+
+Once the contents within the project folder are displayed, simply copy over the `carekit-root.der` certificate.
+
+ <p align="center" >
+   <img src="./docs/CertToProjectFolder.png" width="350" height="250">
+ </p>
+
+Now that the `carekit-root.der` certificate exists within the `CareKitHyperProtectSample.xcodeproj` folder, we can complete the last step of adding the certificate within the xcode UI. 
+
+In xcode click on _File_, and choose the _Add Files to "CareKitHyperProtectSample"_ option. 
+
+ <p align="center" >
+   <img src="./docs/AddCertToXcode.png" 
+   width="200" height="300">
+ </p>
+
+Another screen will appear that should default to the _CareKitHyperProtectSample_ directory, more specifically the project folder mentioned above. The `carekit-root.der` certificate will be present, as illustrated in the screenshot below. Click on the certificate, and complete the addition by selecting _Add_ on the bottom right of the window. 
+
+ <p align="center" >
+   <img src="./docs/CertInXcode.png" 
+   width="350" height="250">
+ </p>
+
+<br>
+
+**Now that the root certificate has been added to our sample app, we can proceed with the integration of the Hyper Protect SDK for iOS into the sample app.**
+
+The Hyper Protect SDK package can be imported into XCode using Swift Package Manager:
 
 <p align="center" >
  <img src="./docs/spm-add-package.png" width="360">
